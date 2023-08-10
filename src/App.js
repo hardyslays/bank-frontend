@@ -1,8 +1,9 @@
 import './App.css';
 import {Routes, Route} from 'react-router-dom';
 
-import { Navbar } from './Components/Navbar/Navbar';
-import { Footer } from './Components/Footer/Footer';
+import { Header } from './Components/Header/Header';
+import { HeaderLogout } from './Components/Header/HeaderLogout';
+// import { Footer } from './Components/Footer/Footer';
 import { Home } from './Components/Home/Home';
 import { Login } from './Components/Login/Login';
 import { Register } from './Components/Register/Register';
@@ -13,11 +14,11 @@ function App() {
   return (
     <div className="App">
     
-    {/* <Navbar/> */}
+    <HeaderLogout/>
 
     {/* //Routes logic */}
     <Routes>
-      <Route path='/'element={<Home/>} />
+      <Route path='/home'element={<Home/>} />
       
       <Route path='/register' element={<Register/>} />
       

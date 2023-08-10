@@ -2,12 +2,6 @@ import React, { useState } from 'react'
 import { Form, Button, Card } from 'react-bootstrap';
 
 export const ApplyForm = () => {
-  
-    // const titleRef = useRef();
-    // const firstnameRef = useRef();
-    // const middlenameRef = useRef();
-    // const lastnameRef = useRef();
-    // const fathernameRef = useRef();
 
     const [form, setForm] = useState({})
     const [err, setErr] = useState({})
@@ -42,10 +36,11 @@ export const ApplyForm = () => {
                             placeholder='Enter title'
                             value= {form.title}
                             onChange={(e) => setField('title', e.target.value)}
-                            isInvalid = {!!err.dob}
+                            isInvalid = {!!err.title}
+                            required
                         />
                         <Form.Control.Feedback type='invalid'>
-
+                            Please check the Title
                         </Form.Control.Feedback>
                     </Form.Group>
                     {/* <Form.Group>
