@@ -34,10 +34,15 @@ export const ApplyForm = () => {
         console.log("Form data :", form);
         fetch(url, {
             method:'POST',
+            mode: 'no-cors',
+            headers:{
+                'Access-Control-Allow-Origin':'*',
+                'content-type':'application/JSON',
+            },
             body: JSON.stringify({
                 title: form.title,
                 firstName: form.fname,
-                midleName: form.mname,
+                middleName: form.mname,
                 lastName: form.lname,
                 fatherName:form.frname,
                 mobileNumber:form.phone,
@@ -55,6 +60,7 @@ export const ApplyForm = () => {
                 permanentPincode:form.perpincode,
                 occupationType: form.occup,
                 sourceOfIncome: form.incomeSource,
+                grossAnnualIncome: form.income,
                 netBankingBool: form.netBanking
             }),
             // body: JSON.stringify(body),
