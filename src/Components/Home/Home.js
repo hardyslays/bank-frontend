@@ -13,6 +13,9 @@ const HomeCard = () => {
                 <Card.Text className='px-2 pb-1'>
                 Hey There, Welcome to our banking system. We are here for you, always!!
                 </Card.Text>
+                <Card.Text className='px-2 pb-1'>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </Card.Text>
             </Card.Body>
             <Card className='mx-3'>
                 <ListGroup className="list-group-flush">
@@ -41,19 +44,17 @@ const HomeCard = () => {
 
 export const Home = () => {
   return (
-    <div height='100%'>
-    <Container style={{margin: 0, padding: 0}}>
-        <Row>
-            <Col fluid="xs sm" md={{span: 4, order: 2}} className='my-5'>
+    <Container fluid='true' className='justify-content-center'>
+        <Row style={{width:'100%'}} className='justify-content-center'>
+            <Col style={{border:'solid 1px green'}} fluid="xs sm" md={{span: 4, order: 2}} className='my-5'>
                 <Container>
                     <HomeCard/>
                 </Container>
             </Col>
-            <Col fluid="xs sm" md={{span: 8, order: 1}} className='my-5'>
+            <Col style={{border:'solid 1px red'}} fluid="xs sm" md={{span: 7, order: 1}} className='my-5'>
 
             </Col>
         </Row>
     </Container>
-    </div>
   )
 }

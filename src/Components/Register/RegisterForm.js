@@ -50,19 +50,20 @@ export const RegisterForm = () => {
     const handleSubmit = async(e) => {
         e.preventDefault();
         
-        console.log(nextForm)
         setNextForm(true);
-        console.log(nextForm)
 
-        // console.log(form.loginPass)
-        // console.log(form.CLoginPass)
-        // console.log((form.loginPass === form.CloginPass))
-        if(form.loginPass !== form.CloginPass){
-            window.alert("Login Password does not match with Confirmation login password")
-            return;
-        }
+        console.log('login: ',form)
+        console.log('login cnfrm: ', form.CLoginPass)
+        console.log((form.loginPass !== form.CLoginPass))
+        
         if(form.TransPass !== form.CTransPass){
             window.alert("Transaction Password does not match with Confirmation Transaction password")
+            
+            return;
+        }
+        if(form.loginPass !== form.CLoginPass){
+            window.alert("Login Password does not match with Confirmation login password")
+            
             return;
         }
         
@@ -82,8 +83,8 @@ export const RegisterForm = () => {
 
   return (
     <div>
-        <Card style={{maxWidth: '500px'}}>
-            <Card.Header className='text-center p-3' as='h2'>Register</Card.Header>
+        <Card>
+            <Card.Header className='text-center px-2 py-3' as='h3'>Register for Net Banking</Card.Header>
             <Card.Body>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group>
