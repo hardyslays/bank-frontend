@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Form, Button, Card, Container, FloatingLabel } from 'react-bootstrap';
+
 import { SERVER_URL } from '../../Constants/url';
+import { postApplyForm } from '../../Services/api';
 
 export const ApplyForm = () => {
   
@@ -29,55 +31,87 @@ export const ApplyForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         
-        const url = SERVER_URL + '/customer/apply'
+        // const url = SERVER_URL + '/customer/apply'
+        
+        let dummyData = {
+            title: '1',
+            firstName: '1',
+            middleName: '1',
+            lastName: '1',
+            fatherName:'1',
+            mobileNumber:'1',
+            emailId:'1',
+            adharNumber:'1',
+            dob:'1',
+            residentialLine1:'1',
+            residentialLine2:'1',
+            residentialLandmark: '1',
+            residentialState:'1',
+            residentialPincode:'1',
+            permanentLine1:'1',
+            permanentLine2:'1',
+            permanentLandmark:'1',
+            permanentState:'1',
+            permanentPincode:'1',
+            occupationType: '1',
+            sourceOfIncome: '1',
+            grossAnnualIncome: parseInt('1'),
+            debitCardBool: true?"1":"0",
+            netBankingBool: true?"1":"0"
+        }
+        let formData = {
+            title: form.title,
+            firstName: form.fname,
+            middleName: form.mname,
+            lastName: form.lname,
+            fatherName:form.frname,
+            mobileNumber:form.phone,
+            emailId:form.email,
+            adharNumber:form.aadhar,
+            dob:form.dob,
+            residentialLine1:form.resiadd,
+            residentialLine2:form.resiadd2,
+            residentialLandmark: form.landmark,
+            residentialState:form.resistate,
+            residentialPincode:form.pincode,
+            permanentLine1:form.permadd,
+            permanentLine2:form.permadd2,
+            permanentLandmark:form.perlandmark,
+            permanentState:form.perstate,
+            permanentPincode:form.perpincode,
+            occupationType: form.occup,
+            sourceOfIncome: form.incomeSource,
+            grossAnnualIncome: parseInt(form.income),
+            debitCardBool: form.debitCard?"1":"0",
+            netBankingBool: form.netBanking?"1":"0"
+        }
 
-        console.log("Form data :", form);
-        fetch(url, {
-            method:'POST',
-            mode: 'no-cors',
-            headers:{
-                'Access-Control-Allow-Origin':'*',
-                'content-type':'application/JSON',
-            },
-            body: JSON.stringify({
-                title: form.title,
-                firstName: form.fname,
-                middleName: form.mname,
-                lastName: form.lname,
-                fatherName:form.frname,
-                mobileNumber:form.phone,
-                emailId:form.email,
-                adharNumber:form.aadhar,
-                dob:form.dob,
-                residentialLine1:form.resiadd,
-                residentialLine2:form.resiadd2,
-                residentialState:form.resistate,
-                residentialPincoe:form.pincode,
-                permanentLine1:form.permadd,
-                permanentLine2:form.permadd2,
-                permanentLandmark:form.perlandmark,
-                permanentState:form.perstate,
-                permanentPincode:form.perpincode,
-                occupationType: form.occup,
-                sourceOfIncome: form.incomeSource,
-                grossAnnualIncome: form.income,
-                netBankingBool: form.netBanking
-            }),
-            // body: JSON.stringify(body),
-            headers:{
-                'Content-type':'application/json;charset=UTF-8',
-            },
+        console.log("Form data :", formData)
+        
+        postApplyForm(formData)
+        .then(data => {
+            console.log(data)
         })
-        .then(res => {
-            return res.json();
-        })
-        .then(json => {
-            console.log('Resp : ',json)
-            alert("Data stored in json-server :)")
-        })
-        .catch(err => {
-            console.log("Error : ",err)
-        })
+        .catch(err => console.log(err))
+
+        // fetch(url, {
+        //     method:'POST',
+        //     mode: 'no-cors',
+        //     headers:{
+        //         'Content-Type':'application/json; charset=utf-8',
+        //     },
+        //     body: JSON.stringify(formData)
+        // })
+        // .then(res => {
+        //     return res.json();
+        // })
+        // .then(json => {
+        //     console.log('Resp : ',json)
+        //     alert("Data stored in json-server :)")
+        // })
+        // .catch(err => {
+        //     console.log("Error : ",err)
+        // })
     }
 
   return (
@@ -99,8 +133,9 @@ export const ApplyForm = () => {
 
                         </Form.Control.Feedback>
                     </Form.Group>
+
                     <Form.Group>
-                        <Form.Label>Enter First Name</Form.Label>
+                        <Form.Label>First Name</Form.Label>
                         <Form.Control 
                             type='text' 
                             placeholder='Enter First Name'
@@ -400,6 +435,19 @@ export const ApplyForm = () => {
                             value= {form.income}
                             onChange={(e) => setField('income', e.target.value)}
                             isInvalid = {!!err.income} required
+                        />
+                        <Form.Control.Feedback type='invalid'>
+
+                        </Form.Control.Feedback>
+                    </Form.Group>
+
+                    <Form.Group>
+                        <Form.Check 
+                            type='checkbox'
+                            value= {form.debitCard}
+                            label="I want Debit Card services"
+                            onChange={(e) => setField('debitCard', e.target.checked)}
+                            isInvalid = {!!err.debitCard}
                         />
                         <Form.Control.Feedback type='invalid'>
 
