@@ -2,15 +2,11 @@ import React, { useState } from 'react'
 import { Form, Button, Card, Container, FloatingLabel } from 'react-bootstrap';
 
 import { SERVER_URL } from '../../Constants/url';
-import { postApplyForm } from '../../Services/api';
+import { postApplyForm } from '../../Services/Api';
+import { useNavigate } from 'react-router-dom';
 
 export const ApplyForm = () => {
-  
-    // const titleRef = useRef();
-    // const firstnameRef = useRef();
-    // const middlenameRef = useRef();
-    // const lastnameRef = useRef();
-    // const fathernameRef = useRef();
+    const navigate = useNavigate()
 
     const [form, setForm] = useState({})
     const [err, setErr] = useState({})
@@ -33,32 +29,6 @@ export const ApplyForm = () => {
         
         // const url = SERVER_URL + '/customer/apply'
         
-        let dummyData = {
-            title: '1',
-            firstName: '1',
-            middleName: '1',
-            lastName: '1',
-            fatherName:'1',
-            mobileNumber:'1',
-            emailId:'1',
-            adharNumber:'1',
-            dob:'1',
-            residentialLine1:'1',
-            residentialLine2:'1',
-            residentialLandmark: '1',
-            residentialState:'1',
-            residentialPincode:'1',
-            permanentLine1:'1',
-            permanentLine2:'1',
-            permanentLandmark:'1',
-            permanentState:'1',
-            permanentPincode:'1',
-            occupationType: '1',
-            sourceOfIncome: '1',
-            grossAnnualIncome: parseInt('1'),
-            debitCardBool: true?"1":"0",
-            netBankingBool: true?"1":"0"
-        }
         let formData = {
             title: form.title,
             firstName: form.fname,
@@ -91,27 +61,9 @@ export const ApplyForm = () => {
         postApplyForm(formData)
         .then(data => {
             console.log(data)
+            navigate('/apply-success')
         })
         .catch(err => console.log(err))
-
-        // fetch(url, {
-        //     method:'POST',
-        //     mode: 'no-cors',
-        //     headers:{
-        //         'Content-Type':'application/json; charset=utf-8',
-        //     },
-        //     body: JSON.stringify(formData)
-        // })
-        // .then(res => {
-        //     return res.json();
-        // })
-        // .then(json => {
-        //     console.log('Resp : ',json)
-        //     alert("Data stored in json-server :)")
-        // })
-        // .catch(err => {
-        //     console.log("Error : ",err)
-        // })
     }
 
   return (

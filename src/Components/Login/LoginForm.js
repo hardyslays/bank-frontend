@@ -1,8 +1,11 @@
 import React, {useState, useEffect} from 'react'
 import { Form, Button, Card } from "react-bootstrap";
 
+// import {AuthUser} from '../../Services/auth';
+import { useNavigate } from 'react-router-dom';
+
 export const LoginForm = () => {
-    
+    const navigate = useNavigate()
     const [form, setForm] = useState({})
     const [err, setErr] = useState({})
 
@@ -22,17 +25,18 @@ export const LoginForm = () => {
     const handleSubmit = async(e) => {
         e.preventDefault();
         
-        
-        // const res = await fetch( "https://localhost:8000/customer",{
-        //     method:'POST',
-        //     headers: {
-        //         'content-type':'application/JSON',
-        //     },
-        //     body: JSON.stringify({ form })
+        // const resp = AuthUser.auth.post('/login', form)
+        // .then(res => res.data)
+        // .then(data => {
+            
         // })
-        // const data = await res.json()
-        // console.log(data)
-        
+        // if(resp == "success"){
+        //     console.log("SUCCESS")
+        //     // navigate('/dashboard')
+        // }
+        // else{
+        //     console.log("ERROR: ", err)
+        // }
     }
 
 
@@ -61,8 +65,8 @@ export const LoginForm = () => {
                         <Form.Control 
                             type='password'
                             placeholder='Enter your password'
-                            value= {form.pass}
-                            onChange={(e) => setField('pass', e.target.value)}
+                            value= {form.password}
+                            onChange={(e) => setField('password', e.target.value)}
                             isInvalid = {!!err.pass}
                             required 
                         />

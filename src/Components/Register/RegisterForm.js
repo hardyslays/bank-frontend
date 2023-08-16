@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { Form, Button, Card } from "react-bootstrap";
+import { postRegisterForm } from '../../Services/Api';
 
 const OTPform = () => {
     const [OTP, setOTP] = useState("")
@@ -49,10 +50,8 @@ export const RegisterForm = () => {
     
     const handleSubmit = async(e) => {
         e.preventDefault();
-        
-        setNextForm(true);
 
-        console.log('login: ',form)
+        console.log('login: ',regisform)
         console.log('login cnfrm: ', form.CLoginPass)
         console.log((form.loginPass !== form.CLoginPass))
         
@@ -66,17 +65,22 @@ export const RegisterForm = () => {
             
             return;
         }
+
+        let regisform = {
+            
+            accountNumber : form.acNumber,
+            userName : form.username,
+            password : form.loginPass,
+        }
+
+        postRegisterForm(regisform)
+        .then(data => {
+            console.log(data)
+            setNextForm(true)
+        })
+        .catch(err => console.log(err))
         
-        
-        // const res = await fetch( "https://localhost:8000/customer",{
-        //     method:'POST',
-        //     headers: {
-        //         'content-type':'application/JSON',
-        //     },
-        //     body: JSON.stringify({ form })
-        // })
-        // const data = await res.json()
-        // console.log(data)
+
         
     }
 
