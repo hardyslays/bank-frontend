@@ -8,7 +8,7 @@ const HomeCard = () => {
 
     return (
         <Card className='text-center'>
-            <Card.Header className='p-4' as='h2'>Bank Home Page</Card.Header>
+            <Card.Header className='p-3' as='h2'>Bank Home Page</Card.Header>
             <Card.Body>
                 <Card.Text className='px-2 pb-1'>
                 Hey There, Welcome to our banking system. We are here for you, always!!
@@ -44,14 +44,14 @@ const HomeCard = () => {
 
 export const Home = () => {
   return (
-    <Container fluid='true' className='justify-content-center'>
-        <Row style={{width:'100%'}} className='justify-content-center'>
-            <Col style={{border:'solid 1px green'}} fluid="xs sm" md={{span: 4, order: 2}} className='my-5'>
+    <Container>
+        <Row className='justify-content-center'>
+            <Col style={{border:'solid 1px green'}} fluid="xs sm" md={{span: 4, order: 2}} className='my-3'>
                 <Container>
                     <HomeCard/>
                 </Container>
             </Col>
-            <Col style={{border:'solid 1px red'}} fluid="xs sm" md={{span: 7, order: 1}} className='my-5'>
+            <Col style={{border:'solid 1px red'}} fluid="xs sm" md={{span: 8, order: 1}} className='my-3'>
 
             </Col>
         </Row>

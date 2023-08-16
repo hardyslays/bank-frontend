@@ -13,6 +13,7 @@ import { AdminLogin } from './Components/Admin/AdminLogin';
 import { AdminDashboard } from './Components/Admin/AdminDashboard';
 import { ApplySuccess } from './Components/Apply/ApplySuccess';
 import { AdminApproval } from './Components/Admin/AdminApproval';
+import { Dashboard } from './Components/Dashboard/Dashboard';
 
 function App() {
   return (
@@ -29,7 +30,10 @@ function App() {
       <Route path='/login' element={<Login/>} />
 
       <Route path='/apply' element={<Apply/>} />
+      
       <Route path='/apply-success' element={<ApplySuccess/>}/>
+
+        <Route path='/dashboard' element={<Dashboard/>} />
 
       <Route path='/admin'>
           <Route path='login' element = {<AdminLogin/>} />
