@@ -4,8 +4,8 @@ import { useState } from "react";
 import { SERVER_URL } from "../Constants/url";
 
 export default function Auth() {
-    const [token, setToken] = useState();
-    const [user, setUser] = useState();
+    const [token, setToken] = useState(null);
+    const [user, setUser] = useState(null);
 
     const saveToken = (user, token) => {
         localStorage.setItem('token', JSON.stringify(token));
@@ -16,11 +16,11 @@ export default function Auth() {
     }
 
     const getToken = () => {
-        const tokenString = JSON.stringify(localStorage.getItem('token'))
+        const tokenString = localStorage.getItem('token')
         return tokenString;
     }
     const getUser = () => {
-        const userString = JSON.stringify(localStorage.getItem('user'))
+        const userString = localStorage.getItem('user')
         return userString;
     }
 

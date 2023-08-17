@@ -2,29 +2,6 @@ import React, {useState, useEffect} from 'react'
 import { Form, Button, Card } from "react-bootstrap";
 import { postRegisterForm } from '../../Services/Api';
 
-const OTPform = () => {
-    const [OTP, setOTP] = useState("")
-
-    const handleOTPSubmit = () => {
-
-    }
-
-    return(
-    <Form onSubmit={handleOTPSubmit}>
-        <Form.Group>
-            <Form.Label>OTP</Form.Label>
-            <Form.Control 
-                type='number'
-                placeholder='Enter OTP'
-                value={OTP}
-                onChange={(e) => setOTP(e.target.value)}
-                required
-            />
-            <Button className='mt-4 w-100' type="submit">Confirm OTP</Button>
-        </Form.Group>
-    </Form>
-    )
-}
 
 export const RegisterForm = () => {
     
@@ -50,6 +27,13 @@ export const RegisterForm = () => {
     
     const handleSubmit = async(e) => {
         e.preventDefault();
+        
+        let regisform = {
+            
+            accountNumber : form.acNumber,
+            userName : form.username,
+            password : form.loginPass,
+        }
 
         console.log('login: ',regisform)
         console.log('login cnfrm: ', form.CLoginPass)
@@ -65,12 +49,10 @@ export const RegisterForm = () => {
             
             return;
         }
+        if(form.otp != '0000'){
+            window.alert("OTP provided is incorrect")
 
-        let regisform = {
-            
-            accountNumber : form.acNumber,
-            userName : form.username,
-            password : form.loginPass,
+            return;
         }
 
         postRegisterForm(regisform)
@@ -173,11 +155,18 @@ export const RegisterForm = () => {
                             Please check the Confirm Transaction Password
                         </Form.Control.Feedback>
                     </Form.Group>
-
+                    <Form.Group>
+                        <Form.Label>OTP</Form.Label>
+                        <Form.Control 
+                            type='number'
+                            placeholder='Enter OTP'
+                            value={form.otp}
+                            onChange={(e) => setField('otp', e.target.value)}
+                            required
+                        />
+                    </Form.Group>
                     <Button className='mt-4 w-100' type="submit">Register</Button>
                 </Form>
-                {nextForm && <OTPform/>}
-                {nextForm ? "True" : "False"}
             </Card.Body>
         </Card>
     </div>

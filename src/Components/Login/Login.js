@@ -1,8 +1,23 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {LoginForm} from './LoginForm'
 import { Col, Container, Row } from 'react-bootstrap'
+import { useNavigate } from 'react-router-dom'
+
+import Auth from '../../Services/Auth'
 
 export const Login = () => {
+    const navigate = useNavigate();
+    const { getToken } = Auth();
+    useEffect(() => {
+        //To check if already Logged in
+        const token = getToken();
+        // console.log('token: ', token)
+        // console.log('val:', (!token))
+        if(!!getToken()){
+            navigate('/dashboard', {replace: true})
+        }
+    }, [])
+
   return (
     <Container fluid='true' className='justify-content-center'>
     <Row style={{width:'100%'}} className='justify-content-center'>

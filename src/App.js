@@ -13,37 +13,58 @@ import { AdminLogin } from './Components/Admin/AdminLogin';
 import { AdminDashboard } from './Components/Admin/AdminDashboard';
 import { ApplySuccess } from './Components/Apply/ApplySuccess';
 import { AdminApproval } from './Components/Admin/AdminApproval';
-import { Dashboard } from './Components/Dashboard/Dashboard';
+import { DashboardPage } from './Components/Dashboard/DashboardPage';
+import Auth from './Services/Auth'
+
 
 function App() {
+
+  const { getToken } = Auth();
+
+  const LoggedInRoutes = () => {
+    return (
+      <>
+      <Routes>
+        <Route path='/dashboard' element={<DashboardPage/>} />
+
+        <Route path='/admin'>
+            <Route path='login' element = {<AdminLogin/>} />
+            <Route path = 'dashboard' element={ <AdminDashboard/>} />
+            <Route path = 'customer/:id' element={<AdminApproval />} />
+        </Route>
+
+        <Route element={<Error/>} />
+      </Routes>
+      </>
+    )
+  }
+
+
   return (
     <div className="App">
-    
-    <HeaderLogout/>
-
+      <>
+      <HeaderLogout/>
+      
     {/* //Routes logic */}
-    <Routes>
-      <Route exact path='/home'element={<Home/>} />
-      
-      <Route path='/register' element={<Register/>} />
-      
-      <Route path='/login' element={<Login/>} />
 
-      <Route path='/apply' element={<Apply/>} />
-      
-      <Route path='/apply-success' element={<ApplySuccess/>}/>
+      <Routes>
+        <Route exact path='/home'element={<Home/>} />
+        
+        <Route path='/register' element={<Register/>} />
+        
+        <Route path='/login' element={<Login/>} />
 
-        <Route path='/dashboard' element={<Dashboard/>} />
+        <Route path='/apply' element={<Apply/>} />
+        
+        <Route path='/apply-success' element={<ApplySuccess/>}/>
+      </Routes>
+      {(!getToken())&&(LoggedInRoutes())}
+      </>
+    
 
-      <Route path='/admin'>
-          <Route path='login' element = {<AdminLogin/>} />
-          <Route path = 'dashboard' element={ <AdminDashboard/>} />
-          <Route path = 'customer/:id' element={<AdminApproval />} />
-      </Route>
+    
+    
 
-      <Route element={<Error/>} />
-    </Routes>
-    {/* <Footer/> */}
 
     </div>
   );
