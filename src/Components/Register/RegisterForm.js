@@ -36,8 +36,8 @@ export const RegisterForm = () => {
         }
 
         console.log('login: ',regisform)
-        console.log('login cnfrm: ', form.CLoginPass)
-        console.log((form.loginPass !== form.CLoginPass))
+        // console.log('login cnfrm: ', form.CLoginPass)
+        // console.log((form.loginPass !== form.CLoginPass))
         
         if(form.TransPass !== form.CTransPass){
             window.alert("Transaction Password does not match with Confirmation Transaction password")
@@ -55,7 +55,7 @@ export const RegisterForm = () => {
             return;
         }
 
-        postRegisterForm(regisform)
+        postRegisterForm(form.acNumber, regisform)
         .then(data => {
             console.log(data)
             setNextForm(true)

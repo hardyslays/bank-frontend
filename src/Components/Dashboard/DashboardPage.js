@@ -27,7 +27,7 @@ export const DashboardPage = () => {
     }, [])
 
   return (
-    <Row className='h-100 m-0 p-0'>
+    <Row className='m-0 p-0'>
         <Col md={2} style={{border:'solid 1px red'}} className='p-0'>
             <Navbar bg="light" data-bs-theme="light" className='align-items-center justify-content-start h-100 w-100 flex-column'>
                 <Navbar.Brand className='w-100 text-center' as={'h3'}>Hello, User</Navbar.Brand>

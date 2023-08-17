@@ -17,7 +17,7 @@ export const postApplyForm = async(formData) => {
 }
 
 export const postRegisterForm = async(id, formData) => {
-    const  res = await instance.post('/netbanking/create'+id, JSON.stringify(formData))
+    const  res = await instance.post(`/netbanking/create/${id}`, JSON.stringify(formData))
     return res.data
 }
 

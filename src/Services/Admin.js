@@ -11,7 +11,7 @@ let instance = axios.create({
 })
 
 export const getCustomers = async() => {
-    const res = await instance.get('/customer')
+    const res = await instance.get('/customers')
 
     return res.data
 }
@@ -23,7 +23,7 @@ export const getCustomerById = async(id) => {
 }
 
 export const postAdminApprove = async(id) => {
-    const res = await instance.post('/admin/approve/' + id)
+    const res = await instance.post('/approve/account/' + id)
 
     return res
 }

@@ -6,7 +6,7 @@ export const HeaderLogout = () => {
     const navigate = useNavigate();
 
   return (
-    <Navbar expand='lg' className="bg-body-tertiary">
+    <Navbar expand='lg' className="bg-body-tertiary m-0">
         <Container>
             <Navbar.Brand onClick={() => navigate('/home')} style={{cursor:'pointer', fontSize:'1.75em', fontWeight:"600"}}>
                 ONLINE BANKING SYSTEM
