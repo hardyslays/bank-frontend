@@ -30,7 +30,7 @@ export const DashboardPage = () => {
     <Row className='m-0 p-0'>
         <Col md={2} style={{border:'solid 1px red'}} className='p-0'>
             <Navbar bg="light" data-bs-theme="light" className='align-items-center justify-content-start h-100 w-100 flex-column'>
-                <Navbar.Brand className='w-100 text-center' as={'h3'}>Hello, User</Navbar.Brand>
+                <Navbar.Brand className='text-center fs-5'>Hello, User</Navbar.Brand>
                 <Nav className='flex-column'defaultActiveKey={'dashboard'} onSelect={key => setPage(key)}>
                     <Nav.Link eventKey={'dashboard'}>DashBoard</Nav.Link>
                     <Nav.Link eventKey={'statement'}>A/C Statements</Nav.Link>
