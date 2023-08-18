@@ -210,9 +210,6 @@ export const Dashboard = () => {
                 <SideArea />
             </Col>
         </Row>
-        <Row>
-            Other
-        </Row>
     </div>
   )
 }
