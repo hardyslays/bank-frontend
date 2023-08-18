@@ -35,6 +35,6 @@ export default function Auth() {
         auth,
         getToken,
         getUser,
-        saveToken
+        'setToken': saveToken
     }
 }

@@ -1,13 +1,14 @@
 import React, {useState, useEffect} from 'react'
 import { Form, Button, Card } from "react-bootstrap";
+import { useNavigate } from 'react-router-dom';
 import { postRegisterForm } from '../../Services/Api';
 
 
 export const RegisterForm = () => {
+    const navigate= useNavigate()
     
     const [form, setForm] = useState({})
     const [err, setErr] = useState({})
-    const [nextForm, setNextForm] = useState(false)
 
     const setField = (field, value) =>{
         setForm({
@@ -21,9 +22,6 @@ export const RegisterForm = () => {
             [field]:null
         })
     }
-
-    useEffect(() => {
-    }, [nextForm]);
     
     const handleSubmit = async(e) => {
         e.preventDefault();
@@ -57,10 +55,17 @@ export const RegisterForm = () => {
 
         postRegisterForm(form.acNumber, regisform)
         .then(data => {
+            if(data === 'duplicate'){
+                window.alert("This account number is already registered")
+                return;
+            }
             console.log(data)
-            setNextForm(true)
+            navigate('/login')
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+            console.log('ERR: ')
+            console.log(err)
+        })
         
 
         

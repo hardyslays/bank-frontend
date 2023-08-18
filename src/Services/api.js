@@ -17,18 +17,12 @@ export const postApplyForm = async(formData) => {
 }
 
 export const postRegisterForm = async(id, formData) => {
-    const  res = await instance.post(`/netbanking/create/${id}`, JSON.stringify(formData))
+    const  res = await instance.post(`/netbanking/create/account/${id}`, JSON.stringify(formData))
     return res.data
 }
 
-const login = (loginData) => {
-    Auth.auth.post('/login', JSON.stringify(loginData))
-    .then(res => res.data)
-    .then(data => {
-        Auth.setToken(data.user, data.access_token);
-        return "success"
-    })
-    .catch(err => {
-        return err
-    })
+export const login = async(loginData) => {
+    const res = await instance.post('/netbanking/login', JSON.stringify(loginData))
+
+    return res.data
 }
