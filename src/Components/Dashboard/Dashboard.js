@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
-import { Row, Col, Container } from 'react-bootstrap'
+import { Row, Col, Container, Form } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
 
-import { MDBCard, MDBCardBody, MDBCardText, MDBCardTitle, MDBTabs, MDBTabsItem, MDBTabsLink, MDBTabsContent, MDBTabsPane, MDBRow, MDBCol, MDBContainer } from 'mdb-react-ui-kit';
+import { MDBCard, MDBCardBody, MDBCardText, MDBCardTitle, MDBTabs, MDBTabsItem, MDBTabsLink, MDBTabsContent, MDBTabsPane, MDBRow, MDBCol, MDBContainer, MDBBadge, MDBBtn, MDBCardFooter, MDBModal, MDBModalTitle, MDBModalDialog, MDBModalContent, MDBModalHeader, MDBModalBody, MDBModalFooter, MDBInput } from 'mdb-react-ui-kit';
 import CanvasJSReact from '@canvasjs/react-charts';
 
 const TransactionChart = (dataPoints) => {
@@ -196,6 +196,82 @@ const SideArea = () => {
     )
 }
 
+const AddPayeeModal = () => {
+
+    const [visible, setVisible] = useState(false);
+    const [form, setForm] = useState({});
+
+    const changeVisibility = () => setVisible(!visible)
+    const setField = (field, value) => setForm({...form, [field]:value})
+    const clearField = () => setForm({'name': '', 'acNumber': '', 'nickname':''})
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        console.log(form)
+        
+        clearField()
+        setVisible(false)
+    }
+
+    return(
+        <>
+        <MDBBtn onClick={changeVisibility}>Add New Payee</MDBBtn>
+
+        <MDBModal tabIndex='-1' show={visible} setShow={setVisible}>
+            <MDBModalDialog centered>
+                <MDBModalContent>
+                    <MDBModalHeader>
+                        <MDBModalTitle>Add A New Payee</MDBModalTitle>
+                        <MDBBtn className='btn-close' color='none' onClick={changeVisibility}></MDBBtn>
+                    </MDBModalHeader>
+
+                    <MDBModalBody>
+                        <Form id='payee-form' onSubmit={handleSubmit}>
+                            <MDBInput className='mb-4' type='text' id='name' label='Payee Name' value={form.name} onChange={e => setField('name', e.target.value)} required/>
+                            <MDBInput className='mb-4' type='number' id='acNumber' label='Payee Account Number' value={form.acNumber} onChange={e => setField('acNumber', e.target.value)} required/>
+                            <MDBInput className='mb-4' type='text' id='nickname' label='Payee Nickname' value={form.nickname} onChange={e => setField('nickname', e.target.value)}/>
+                        </Form>
+                    </MDBModalBody>
+
+                    <MDBModalFooter>
+                        <MDBBtn form='payee-form' type='submit'>Add Payee</MDBBtn>
+                    </MDBModalFooter>
+                </MDBModalContent>
+            </MDBModalDialog>
+        </MDBModal>
+        </>
+    )
+}
+
+const PayeeBoard = () => {
+    return(
+        <>
+        <MDBCard className='m-5'>
+            <MDBCardBody className='fs-5'>YOUR PAYEES</MDBCardBody>
+            <MDBCardBody className='d-flex justify-content-around'>
+                {['Account 1', 'Account 2', "Account 3"].map((name, i) => {
+                    return(
+                        <div>
+                        <img className='shadow-4'
+                        src='assets/default-avatar.png'
+                        alt='avatar'
+                        style={{width: '80px'}}
+                        />
+                        <p className='fs-6 text-center'>{name}</p>
+                        </div>
+                    )
+                })} 
+            </MDBCardBody>
+            
+            <MDBCardFooter className='d-flex justify-content-center'>
+                <AddPayeeModal />
+            </MDBCardFooter>
+        </MDBCard>
+        </>
+    )
+}
+
 export const Dashboard = () => {
     
 
@@ -208,10 +284,8 @@ export const Dashboard = () => {
             </Col>
             <Col>
                 <SideArea />
+                <PayeeBoard />
             </Col>
-        </Row>
-        <Row>
-            Other
         </Row>
     </div>
   )
