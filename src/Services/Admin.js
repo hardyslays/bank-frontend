@@ -11,7 +11,7 @@ let instance = axios.create({
 })
 
 export const getCustomers = async() => {
-    const res = await instance.get('/customers')
+    const res = await instance.get('/get/unapproved/customers')
 
     return res.data
 }

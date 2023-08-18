@@ -3,8 +3,13 @@ import { Form, Button, Card } from "react-bootstrap";
 
 // import {AuthUser} from '../../Services/auth';
 import { useNavigate } from 'react-router-dom';
+import { login } from '../../Services/Api';
+import Auth from '../../Services/Auth';
 
 export const LoginForm = () => {
+
+    const{ setToken } = Auth();
+
     const navigate = useNavigate()
     const [form, setForm] = useState({})
     const [err, setErr] = useState({})
@@ -25,18 +30,22 @@ export const LoginForm = () => {
     const handleSubmit = async(e) => {
         e.preventDefault();
         
-        // const resp = AuthUser.auth.post('/login', form)
-        // .then(res => res.data)
-        // .then(data => {
-            
-        // })
-        // if(resp == "success"){
-        //     console.log("SUCCESS")
-        //     // navigate('/dashboard')
-        // }
-        // else{
-        //     console.log("ERROR: ", err)
-        // }
+        const formData = {
+            'userName': form.username,
+            'password': form.password
+        }
+        console.log(formData)
+
+        login(formData)
+        .then(data => {
+            console.log(data)
+            if(data === 'error'){
+                window.alert("Invalid Credentials")
+                return;
+            }
+            setToken(formData.userName, data)
+            navigate('/dashboard')
+        })
     }
 
 

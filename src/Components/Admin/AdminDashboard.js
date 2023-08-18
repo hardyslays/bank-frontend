@@ -113,7 +113,7 @@ export const AdminDashboard = () => {
 
                 <ListGroup className='list-group-flush'>
                     <ListGroup.Item>D.O.B: {customer.dob}</ListGroup.Item>
-                    <ListGroup.Item>Mobile:  {customer.mobile}</ListGroup.Item>
+                    <ListGroup.Item>Mobile:  {customer.mobileNumber}</ListGroup.Item>
                     <ListGroup.Item>Residential Address: {customer.residentialLine1 + '\n' + customer.residentialLine2 + '\n' + customer.residentialState + ' ' + customer.residentialPincode}</ListGroup.Item>
                 </ListGroup>
                 <Card.Footer className='w-100 px-3 d-flex justify-content-center'>

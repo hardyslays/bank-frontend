@@ -21,7 +21,7 @@ export const DashboardPage = () => {
         const token = getToken();
         // console.log('token: ', token)
         // console.log('val:', (!token))
-        if(!!getToken()){
+        if(!getToken()){
             navigate('/login', {replace: true})
         }
     }, [])

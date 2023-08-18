@@ -1,5 +1,5 @@
 import './App.css';
-import {Routes, Route} from 'react-router-dom';
+import {Routes, Route, Navigate} from 'react-router-dom';
 
 import { Header } from './Components/Header/Header';
 import { HeaderLogout } from './Components/Header/HeaderLogout';
@@ -48,6 +48,7 @@ function App() {
     {/* //Routes logic */}
 
       <Routes>
+        <Route exact path='/' element={<Navigate to={'/home'}/>} />
         <Route exact path='/home'element={<Home/>} />
         
         <Route path='/register' element={<Register/>} />
