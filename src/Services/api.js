@@ -11,6 +11,8 @@ let instance = axios.create({
     }
 })
 
+
+// Unauthenticated API calls
 export const postApplyForm = async(formData) => {
     const res = await instance.post('/customer/apply', JSON.stringify(formData))
     return res.data
@@ -23,6 +25,70 @@ export const postRegisterForm = async(id, formData) => {
 
 export const login = async(loginData) => {
     const res = await instance.post('/netbanking/login', JSON.stringify(loginData))
+
+    return res.data
+}
+
+
+//Authenticated API calls
+let Authinstance = axios.create({
+    baseURL: SERVER_URL + '/api',
+    headers:{
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type':'application/json; charset=utf-8'
+    }
+})
+
+Authinstance.interceptors.request.use( config => {
+    const token = Auth().getToken();
+    config.headers.Authorization =  `Bearer ${token}`;
+    return config;
+})
+
+export const getAccountCustomerDetails = async() => {
+    const res = await Authinstance.get('/netbanking/account/details')
+
+    return res.data
+}
+
+export const postAddPayee = async(formData) => {
+    const res = await Authinstance.post('/netbanking/payee', JSON.stringify(formData))
+
+    return res.data
+}
+
+export const getPayees = async() => {
+    const res = await Authinstance.get('/netbanking/payees')
+
+    return res.data
+}
+
+export const getTransactions = async() => {
+    const res = await Authinstance.get('/netbanking/transactions')
+
+    return res.data
+}
+
+export const getRecentTransactions = async(num) => {
+    const res = await Authinstance.get(`/netbanking/transactions/${num}`)
+
+    return res.data
+}
+
+export const getRecentCreditTransactions = async(num) => {
+    const res = await Authinstance.get(`/netbanking/transactions/credit/${num}`)
+
+    return res.data
+}
+
+export const getRecentDebitTransactions = async(num) => {
+    const res = await Authinstance.get(`/netbanking/transactions/debit/${num}`)
+
+    return res.data
+}
+
+export const getBalance = async() => {
+    const res = await Authinstance.get('/netbanking/balance')
 
     return res.data
 }
