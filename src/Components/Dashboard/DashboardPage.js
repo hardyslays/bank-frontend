@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { Row, Col, Nav, Navbar } from 'react-bootstrap';
-import {Routes, Route} from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 import { Dashboard } from './Dashboard';
@@ -16,18 +15,16 @@ export const DashboardPage = () => {
 
     const navigate = useNavigate();
     const { getToken } = Auth();
+
     useEffect(() => {
         //To check if already Logged in
-        const token = getToken();
-        // console.log('token: ', token)
-        // console.log('val:', (!token))
         if(!getToken()){
             navigate('/login', {replace: true})
         }
     }, [])
 
   return (
-    <Row className='m-0 p-0'>
+    <Row className='m-0 p-0 mh-100'>
         <Col md={2} style={{border:'solid 1px red'}} className='p-0'>
             <Navbar bg="light" data-bs-theme="light" className='align-items-center justify-content-start h-100 w-100 flex-column'>
                 <Navbar.Brand className='text-center fs-5'>Hello, User</Navbar.Brand>
@@ -39,7 +36,7 @@ export const DashboardPage = () => {
                 </Nav>
             </Navbar>
         </Col>
-        <Col className='p-0' style={{border:'solid 1px green'}}>
+        <Col className='p-0'>
             {(page==='dashboard')&&<Dashboard/>}
             {(page==='statement')&&<Statement/>}
             {(page==='transfer')&&<Transfer/>}

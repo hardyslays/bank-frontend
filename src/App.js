@@ -59,7 +59,7 @@ function App() {
         
         <Route path='/apply-success' element={<ApplySuccess/>}/>
       </Routes>
-      {(!getToken())&&(LoggedInRoutes())}
+      {getToken()&&LoggedInRoutes()}
       </>
     
 

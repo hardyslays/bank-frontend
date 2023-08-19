@@ -3,85 +3,9 @@ import { Row, Col, Container, Form } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
 
 import { MDBCard, MDBCardBody, MDBCardText, MDBCardTitle, MDBTabs, MDBTabsItem, MDBTabsLink, MDBTabsContent, MDBTabsPane, MDBRow, MDBCol, MDBContainer, MDBBadge, MDBBtn, MDBCardFooter, MDBModal, MDBModalTitle, MDBModalDialog, MDBModalContent, MDBModalHeader, MDBModalBody, MDBModalFooter, MDBInput } from 'mdb-react-ui-kit';
-import CanvasJSReact from '@canvasjs/react-charts';
 
-const TransactionChart = (dataPoints) => {
-    var CanvasJSChart =  CanvasJSReact.CanvasJSChart;
-
-    const options = {
-        animationEnabled: true,
-        axisX: {
-          title: 'Date',
-          valueFormatString: 'MMM DD'
-        },
-        axisY: {
-          title: 'Balance'
-        },
-        data: [{
-          type: 'spline',
-          markerSize: 10,
-          xValueFormatString: 'MMM DD',
-          yValueFormatString: '#,##0.00',
-          dataPoints: dataPoints
-        }]
-      }
-
-    return(
-        <div className='px-5'>
-            <CanvasJSChart options={options}/>
-        </div>
-    )
-}
-
-const summaryCard = () => {
-    const data = [
-        { x: new Date('2023-08-10'), y: 1200 },
-        { x: new Date('2023-08-11'), y: 1250 },
-        { x: new Date('2023-08-12'), y: 1220 },
-        { x: new Date('2023-08-13'), y: 1250 },
-        { x: new Date('2023-08-14'), y: 1220 },
-        { x: new Date('2023-08-18'), y: 150 },
-        { x: new Date('2023-08-23'), y: 10 },
-    ]
-    
-
-    return (
-        <Container>
-            <Row>
-                <MDBCard className='m-3 p-2'>
-                    <MDBCardText className='pt-3 px-4 fs-4'>TOTAL BALANCE</MDBCardText>
-                    <MDBCardTitle className='pt-1 text-center' tag='h4'>Rs 1,000,000</MDBCardTitle>
-                    <MDBCardBody>
-                        <Row className='fs-7  fw-bold'>
-                            <Col>
-                                <div>
-                                    Credit
-                                </div>
-                                <div>
-                                    Rs 2,000,000
-                                </div>
-                            </Col>
-                            <Col>
-                                <div>
-                                    Debit
-                                </div>
-                                <div>
-                                    Rs 1,000,000
-                                </div>
-                            </Col>
-                        </Row>
-                    </MDBCardBody>
-                </MDBCard>
-            </Row>
-            <Row>
-                <MDBCard className='m-3 p-2'>
-                    <MDBCardText className='pt-3 px-4 fs-4'>SUMMARY</MDBCardText>
-                    {TransactionChart(data)}
-                </MDBCard>
-            </Row>
-        </Container>
-    )
-}
+import { SummaryCard } from './SummaryCard';
+import { DetailsCard } from './DetailsCard';
 
 const SideArea = () => {
 
@@ -95,9 +19,9 @@ const SideArea = () => {
     }
 
     return (
-        <div className='py-3 ps-5 me-5'>
-        <p className='fs-3'>Recent Transactions</p>
-        <MDBTabs className='mb-4 fs-0.75'>
+        <Container className='py-3'>
+        <p className='fs-3 mt-2 ms-3'>Recent Transactions</p>
+        <MDBTabs className='mb-3 ms-3 fs-0.75'>
             <MDBTabsItem>
             <MDBTabsLink onClick={() => handleClick('all')} active={active === 'all'}>
                 All
@@ -121,11 +45,12 @@ const SideArea = () => {
                 {[
                     {icon:'icon', ac: 'Account 1', amount: 'Rs 1000'},
                     {icon:'icon', ac: 'Account 2', amount: 'Rs 500'},
-                    {icon:'icon', ac: 'Account 3', amount: 'Rs 200'}
+                    {icon:'icon', ac: 'Account 3', amount: 'Rs 200'},
+                    {icon:'icon', ac: 'Account 1', amount: 'Rs 1000'},
                 ].map((item, index) => {
                     return(
                         <>
-                        <MDBRow key={index} className='mb-3 fs-5'>
+                        <MDBRow key={index} className='mb-2 fs-6'>
                             <MDBCol size={2} className='text-end'>
                                 {item.icon}
                             </MDBCol>
@@ -136,7 +61,7 @@ const SideArea = () => {
                                 {item.amount}
                             </MDBCol>
                         </MDBRow>
-                        <div className='border-bottom border-secondary border-2 mb-3'></div>
+                        <div className='border-bottom border-secondary border-2 mb-2'></div>
                         </>
                         )
                     })}
@@ -150,7 +75,7 @@ const SideArea = () => {
                 ].map((item, index) => {
                     return(
                         <>
-                        <MDBRow key={index} className='mb-3 fs-5'>
+                        <MDBRow key={index} className='mb-2 fs-6'>
                             <MDBCol size={2} className='text-end'>
                                 {item.icon}
                             </MDBCol>
@@ -161,7 +86,7 @@ const SideArea = () => {
                                 {item.amount}
                             </MDBCol>
                         </MDBRow>
-                        <div className='border-bottom border-secondary border-2 mb-3'></div>
+                        <div className='border-bottom border-secondary border-2 mb-2'></div>
                         </>
                         )
                     })}
@@ -174,7 +99,7 @@ const SideArea = () => {
                 ].map((item, index) => {
                     return(
                         <>
-                        <MDBRow key={index} className='mb-3 fs-5'>
+                        <MDBRow key={index} className='mb-2 fs-6'>
                             <MDBCol size={2} className='text-end'>
                                 {item.icon}
                             </MDBCol>
@@ -185,14 +110,14 @@ const SideArea = () => {
                                 {item.amount}
                             </MDBCol>
                         </MDBRow>
-                        <div className='border-bottom border-secondary border-2 mb-3'></div>
+                        <div className='border-bottom border-secondary border-2 mb-2'></div>
                         </>
                         )
                     })}
                 </MDBContainer> 
             </MDBTabsPane>
         </MDBTabsContent>
-        </div>
+        </Container>
     )
 }
 
@@ -246,29 +171,29 @@ const AddPayeeModal = () => {
 
 const PayeeBoard = () => {
     return(
-        <>
-        <MDBCard className='m-5'>
-            <MDBCardBody className='fs-5'>YOUR PAYEES</MDBCardBody>
-            <MDBCardBody className='d-flex justify-content-around'>
-                {['Account 1', 'Account 2', "Account 3"].map((name, i) => {
-                    return(
-                        <div>
-                        <img className='shadow-4'
-                        src='assets/default-avatar.png'
-                        alt='avatar'
-                        style={{width: '80px'}}
-                        />
-                        <p className='fs-6 text-center'>{name}</p>
-                        </div>
-                    )
-                })} 
-            </MDBCardBody>
-            
-            <MDBCardFooter className='d-flex justify-content-center'>
-                <AddPayeeModal />
-            </MDBCardFooter>
-        </MDBCard>
-        </>
+        <Container className='position-absolute' style={{bottom:'2vw', width: '35vw'}}>
+            <MDBCard className=''>
+                <MDBCardText className='fs-4 pt-3 ps-5'>Your Payees</MDBCardText>
+                <MDBCardBody className='d-flex justify-content-around'>
+                    {['Account 1', 'Account 2', "Account 3"].map((name, i) => {
+                        return(
+                            <div>
+                            <img className='shadow-4'
+                            src='assets/default-avatar.png'
+                            alt='avatar'
+                            style={{width: '80px'}}
+                            />
+                            <p className='fs-6 text-center'>{name}</p>
+                            </div>
+                        )
+                    })} 
+                </MDBCardBody>
+                
+                <MDBCardFooter className='d-flex justify-content-center'>
+                    <AddPayeeModal />
+                </MDBCardFooter>
+            </MDBCard>
+        </Container>
     )
 }
 
@@ -277,16 +202,18 @@ export const Dashboard = () => {
 
   return (
     <div className='w-100 m-0'>
-        <h3 className='pt-4 ps-5'>DashBoard</h3>
-        <Row>
-            <Col sm={7} className='ps-5'>
-                {summaryCard()}
-            </Col>
-            <Col>
-                <SideArea />
-                <PayeeBoard />
-            </Col>
-        </Row>
+        <Container>
+            <Row>
+                <Col md={6}>
+                    <DetailsCard />
+                    <SummaryCard />
+                </Col>
+                <Col md={5}>
+                    <SideArea />
+                    <PayeeBoard />
+                </Col>
+            </Row>
+        </Container>
     </div>
   )
 }
