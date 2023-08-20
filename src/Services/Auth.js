@@ -5,16 +5,16 @@ import { SERVER_URL } from "../Constants/url";
 
 export default function Auth() {
         const saveToken = (user, token) => {
-        localStorage.setItem('token', JSON.stringify(token));
-        localStorage.setItem('user', JSON.stringify(user));
+        sessionStorage.setItem('token', JSON.stringify(token));
+        sessionStorage.setItem('user', JSON.stringify(user));
     }
 
     const getToken = () => {
-        const tokenString = localStorage.getItem('token')
+        const tokenString = sessionStorage.getItem('token')
         return tokenString;
     }
     const getUser = () => {
-        const userString = localStorage.getItem('user')
+        const userString = sessionStorage.getItem('user')
         return userString;
     }
 
