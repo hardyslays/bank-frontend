@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { Form, Button, Card } from "react-bootstrap";
+import {MDBCard, MDBCardHeader, MDBCardBody, MDBCardTitle, MDBInput, MDBCheckbox} from 'mdb-react-ui-kit';
 
 // import {AuthUser} from '../../Services/auth';
 import { useNavigate } from 'react-router-dom';
@@ -51,43 +52,36 @@ export const LoginForm = () => {
 
   return (
     <div>
-        <Card>
-            <Card.Header className='text-center px-2 py-3' as='h3'>Login for Net Banking</Card.Header>
-            <Card.Body>
+        <MDBCard>
+            <MDBCardHeader className='text-center px-2 py-3' as='h3'>Login for Net Banking</MDBCardHeader>
+            <MDBCardBody>
                 <Form onSubmit={handleSubmit}>
-                    <Form.Group>
-                        <Form.Label>Username</Form.Label>
-                        <Form.Control 
+                   
+                        <MDBInput 
                             type='text'
-                            placeholder='Enter username'
+                            label='Enter username'
                             value= {form.username}
                             onChange={(e) => setField('username', e.target.value)}
                             isInvalid = {!!err.username}
                             required 
+                            className='m-3'
                         />
-                        <Form.Control.Feedback type='invalid'>
-                            Please check the Username
-                        </Form.Control.Feedback>
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control 
+                       
+                        <MDBInput
                             type='password'
-                            placeholder='Enter your password'
+                            label='Enter your password'
                             value= {form.password}
                             onChange={(e) => setField('password', e.target.value)}
                             isInvalid = {!!err.pass}
                             required 
+                            className='m-3'
                         />
-                        <Form.Control.Feedback type='invalid'>
-                            Please check your Password
-                        </Form.Control.Feedback>
-                    </Form.Group>
+                        
                     
                     <Button className='mt-4 w-100' type="submit">Login</Button>
                 </Form>
-            </Card.Body>
-        </Card>
+            </MDBCardBody>
+        </MDBCard>
     </div>
   )
 }
