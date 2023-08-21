@@ -18,7 +18,7 @@ export const DashboardPage = () => {
 
     useEffect(() => {
         //To check if already Logged in
-        if(!getToken()){
+        if(!!getToken()){
             navigate('/login', {replace: true})
         }
     }, [])
