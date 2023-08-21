@@ -123,7 +123,11 @@ export const PayeeBoard = () => {
     }
 
     return(
+<<<<<<< HEAD
         <Container >
+=======
+        <Container className='position-absolute' style={{bottom:'2vw', width: '35vw'}}>
+>>>>>>> 8dc0bd17f1237a06e75b013ce5863773bd471aff
             <MDBCard className=''>
                 <MDBCardText className='fs-4 pt-3 ps-5'>Your Payees</MDBCardText>
                 <MDBCardBody className='d-flex justify-content-around'>
