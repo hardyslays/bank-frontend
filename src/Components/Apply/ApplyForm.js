@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Form, Button, Card, Container, FloatingLabel } from 'react-bootstrap';
+import {MDBCard, MDBCardHeader, MDBCardBody, MDBCardTitle, MDBInput, MDBCheckbox} from 'mdb-react-ui-kit';
 
 import { SERVER_URL } from '../../Constants/url';
 import { postApplyForm } from '../../Services/Api';
@@ -68,365 +69,230 @@ export const ApplyForm = () => {
 
   return (
     <Container className='p-10'>
-        <Card>
-            <Card.Header as='h2' className='text-center mb-2'>Apply for New Account</Card.Header>
-            <Card.Body>
+        <MDBCard>
+            <MDBCardHeader tag='h2' className='text-center mb-2'>Apply for New Account</MDBCardHeader>
+            <MDBCardBody>
                 <Form onSubmit = {handleSubmit}>
-                    <Form.Group>
-                        <Form.Label>Title</Form.Label>
-                        <Form.Control 
+                        <MDBInput 
                             type='text' 
-                            placeholder='Enter title'
+                            label='Enter Title'
                             value= {form.title}
                             onChange={(e) => setField('title', e.target.value)}
                             isInvalid = {!!err.title} required
+                            className='m-3'
                         />
-                        <Form.Control.Feedback type='invalid'>
 
-                        </Form.Control.Feedback>
-                    </Form.Group>
-
-                    <Form.Group>
-                        <Form.Label>First Name</Form.Label>
-                        <Form.Control 
+                    
+                        <MDBInput 
                             type='text' 
-                            placeholder='Enter First Name'
+                            label='Enter First Name'
                             value= {form.fname}
                             onChange={(e) => setField('fname', e.target.value)}
                             isInvalid = {!!err.fname} required
+                            className='m-3'
                         />
-                        <Form.Control.Feedback type='invalid'>
-
-                        </Form.Control.Feedback>
                         
-                        
-                    </Form.Group>
-
-                    <Form.Group>
-                        <Form.Label>Middle Name</Form.Label>
-                        <Form.Control 
+                        <MDBInput 
                             type='text' 
-                            placeholder='Enter Middle Name'
+                            label='Enter Middle Name'
                             value= {form.mname}
                             onChange={(e) => setField('mname', e.target.value)}
                             isInvalid = {!!err.mname} required
+                            className='m-3'
                         />
-                        <Form.Control.Feedback type='invalid'>
-
-                        </Form.Control.Feedback>
-
-                    </Form.Group>
-
-                    <Form.Group>
-                        <Form.Label>Last Name</Form.Label>
-                        <Form.Control 
+                    
+                        <MDBInput 
                             type='text' 
-                            placeholder='Enter Last Name'
+                            label='Enter Last Name'
                             value= {form.lname}
                             onChange={(e) => setField('lname', e.target.value)}
                             isInvalid = {!!err.lname} required
+                            className='m-3'
                         />
 
-                        <Form.Control.Feedback type='invalid'>
-
-                        </Form.Control.Feedback>
-
-                    </Form.Group>
-
-                    <Form.Group>
-                        <Form.Label>Father's Name</Form.Label>
-                        <Form.Control 
+                        <MDBInput 
                             type='text' 
-                            placeholder='Enter Father Name'
+                            label='Enter Father Name'
                             value= {form.frname}
                             onChange={(e) => setField('frname', e.target.value)}
                             isInvalid = {!!err.frname} required
+                            className = 'm-3'
                         />
-                        <Form.Control.Feedback type='invalid'>
-
-                        </Form.Control.Feedback>
-                    </Form.Group>
-
-                    <Form.Group>
-                        <Form.Label>Date of Birth</Form.Label>
-                        <Form.Control 
+                       
+                        <MDBInput 
                             type='date' 
-                            placeholder="Enter Date of Birth"
+                            label="Enter Date of Birth"
                             value= {form.dob}
                             onChange={(e) => setField('dob', e.target.value)}
                             isInvalid = {!!err.dob} required
+                            className = 'm-3'
                         />
-                        <Form.Control.Feedback type='invalid'>
-
-                        </Form.Control.Feedback>
-                    </Form.Group>
-
-                    <Form.Group>
-                        <Form.Label>Email ID</Form.Label>
-                        <Form.Control 
+                        
+                        <MDBInput 
                             type='email' 
-                            placeholder="Enter Email ID"
+                            label="Enter Email ID"
                             value= {form.email}
                             onChange={(e) => setField('email', e.target.value)}
                             isInvalid = {!!err.email} required
+                            className = 'm-3'
                         />
-                        <Form.Control.Feedback type='invalid'>
-
-                        </Form.Control.Feedback>
-                    </Form.Group>
-
-                    <Form.Group>
-                        <Form.Label>Phone No.</Form.Label>
-                        <Form.Control 
+                      
+                        <MDBInput 
                             type='number' 
-                            placeholder="Enter Phone No."
+                            label="Enter Phone No."
                             value= {form.phone}
                             onChange={(e) => setField('phone', e.target.value)}
                             isInvalid = {!!err.phone} required
+                            className = 'm-3'
                         />
-                        <Form.Control.Feedback type='invalid'>
-
-                        </Form.Control.Feedback>
-                    </Form.Group>
-
-                    <Form.Group>
-                        <Form.Label>Aadhar Number</Form.Label>
-                        <Form.Control 
+                      
+                        <MDBInput 
                             type='number' 
-                            placeholder="Enter Aadhar Number"
+                            label="Enter Aadhar Number"
                             value= {form.aadhar}
                             onChange={(e) => setField('aadhar', e.target.value)}
                             isInvalid = {!!err.aadhar} required
+                            className = 'm-3'
                         />
-                        <Form.Control.Feedback type='invalid'>
-
-                        </Form.Control.Feedback>
-                    </Form.Group>
-
-                    <Form.Group>
-                        <Form.Label>Residential Address</Form.Label>
-                        <Form.Control 
+                       
+                        <MDBInput 
                             type='text' 
-                            placeholder="Address Line 1"
+                            label="Residential Address Line 1"
                             value= {form.resiadd}
                             onChange={(e) => setField('resiadd', e.target.value)}
                             isInvalid = {!!err.resiadd} required
+                            className = 'm-3'
                         />
-                        <Form.Control.Feedback type='invalid'>
-
-                        </Form.Control.Feedback>
-                    </Form.Group>
-
                     
-                    <Form.Group>
-                    
-                        <Form.Control 
+                        <MDBInput 
                             type='text' 
-                            placeholder="Address Line 2"
+                            label="Residential Address Line 2"
                             value= {form.resiadd2}
                             onChange={(e) => setField('resiadd2', e.target.value)}
                             isInvalid = {!!err.resiadd2} required
                         />
-                        <Form.Control.Feedback type='invalid'>
-
-                        </Form.Control.Feedback>
-                    </Form.Group>
-
-                    
-                    <Form.Group>
-                        <Form.Label>Residential Landmark</Form.Label>
-                        <Form.Control 
+                       
+                        <MDBInput 
                             type='text' 
-                            placeholder=""
+                            label="Residential Landmark"
                             value= {form.landmark}
                             onChange={(e) => setField('landmark', e.target.value)}
                             isInvalid = {!!err.landmark} required
+                            className = 'm-3'
                         />
-                        <Form.Control.Feedback type='invalid'>
-
-                        </Form.Control.Feedback>
-                    </Form.Group>
-
-                    
-                    <Form.Group>
-                        <Form.Label>Residential State</Form.Label>
-                        <Form.Control 
+                      
+                        <MDBInput 
                             type='text' 
-                            placeholder=""
+                            label="Residential State"
                             value= {form.resistate}
                             onChange={(e) => setField('resistate', e.target.value)}
                             isInvalid = {!!err.resistate} required
+                            className = 'm-3'
                         />
-                        <Form.Control.Feedback type='invalid'>
-
-                        </Form.Control.Feedback>
-                    </Form.Group>
-
-                    
-                    <Form.Group>
-                        <Form.Label>Residential Pincode</Form.Label>
-                        <Form.Control 
+                      
+                        <MDBInput 
                             type='number' 
-                            placeholder=""
+                            label="Residential Pincode"
                             value= {form.pincode}
                             onChange={(e) => setField('pincode', e.target.value)}
                             isInvalid = {!!err.pincode} required
+                            className = 'm-3'
                         />
-                        <Form.Control.Feedback type='invalid'>
-
-                        </Form.Control.Feedback>
-                    </Form.Group>
-
-                    <Form.Group>
-                        <Form.Label>Permanent Address</Form.Label>
-                        <Form.Control 
+                       
+                        <MDBInput 
                             type='text' 
-                            placeholder="Address Line 1"
+                            label="Permanent Address Line 1"
                             value= {form.permadd}
                             onChange={(e) => setField('permadd', e.target.value)}
                             isInvalid = {!!err.permadd} required
+                            className = 'm-3'
                         />
-                        <Form.Control.Feedback type='invalid'>
-
-                        </Form.Control.Feedback>
-                    </Form.Group>
-
                     
-                    <Form.Group>
-                    
-                        <Form.Control 
+                        <MDBInput 
                             type='text' 
-                            placeholder="Address Line 2"
+                            label="Permanent Address Line 2"
                             value= {form.permadd2}
                             onChange={(e) => setField('permadd2', e.target.value)}
                             isInvalid = {!!err.permadd2} required
+                            className = 'm-3'
                         />
-                        <Form.Control.Feedback type='invalid'>
-
-                        </Form.Control.Feedback>
-                    </Form.Group>
-
-                    
-                    <Form.Group>
-                        <Form.Label> Permanent Landmark</Form.Label>
-                        <Form.Control 
+                       
+                        <MDBInput 
                             type='text' 
-                            placeholder=""
+                            label="Permanent Landmark"
                             value= {form.perlandmark}
                             onChange={(e) => setField('perlandmark', e.target.value)}
                             isInvalid = {!!err.perlandmark} required
+                            className = 'm-3'
                         />
-                        <Form.Control.Feedback type='invalid'>
-
-                        </Form.Control.Feedback>
-                    </Form.Group>
-
-                    
-                    <Form.Group>
-                        <Form.Label>Permanent State</Form.Label>
-                        <Form.Control 
+                      
+                        <MDBInput 
                             type='text' 
-                            placeholder=""
+                            label="Permanent State"
                             value= {form.perstate}
                             onChange={(e) => setField('perstate', e.target.value)}
                             isInvalid = {!!err.perstate} required
+                            className = 'm-3'
                         />
-                        <Form.Control.Feedback type='invalid'>
-
-                        </Form.Control.Feedback>
-                    </Form.Group>
-
-                    
-                    <Form.Group>
-                        <Form.Label>Permanent Pincode</Form.Label>
-                        <Form.Control 
+                        
+                        <MDBInput 
                             type='number' 
-                            placeholder=""
+                            label="Permanent Pincode"
                             value= {form.perpincode}
                             onChange={(e) => setField('perpincode', e.target.value)}
                             isInvalid = {!!err.perpincode} required
+                            className = 'm-3'
                         />
-                        <Form.Control.Feedback type='invalid'>
-
-                        </Form.Control.Feedback>
-                    </Form.Group>
-
-                    <Form.Group>
-                        <Form.Label>Occupation Type</Form.Label>
-                        <Form.Control 
+                        
+                        <MDBInput 
                             type='text' 
-                            placeholder=""
+                            label="Occupation"
                             value= {form.occup}
                             onChange={(e) => setField('occup', e.target.value)}
                             isInvalid = {!!err.occup} required
+                            className = 'm-3'
                         />
-                        <Form.Control.Feedback type='invalid'>
-
-                        </Form.Control.Feedback>
-                    </Form.Group>
-
-                    <Form.Group>
-                        <Form.Label>Source of Income</Form.Label>
-                        <Form.Control 
+                       
+                        <MDBInput 
                             type='text' 
-                            placeholder=""
+                            label="Source of Income"
                             value= {form.incomeSource}
                             onChange={(e) => setField('incomeSource', e.target.value)}
                             isInvalid = {!!err.incomeSource} required
+                            className = 'm-3'
                         />
-                        <Form.Control.Feedback type='invalid'>
-
-                        </Form.Control.Feedback>
-                    </Form.Group>
-                    
-                    <Form.Group>
-                        <Form.Label>Gross Annual Income</Form.Label>
-                        <Form.Control 
+                        
+                        <MDBInput 
                             type='number' 
-                            placeholder=""
+                            label="Gross Annual Income"
                             value= {form.income}
                             onChange={(e) => setField('income', e.target.value)}
                             isInvalid = {!!err.income} required
+                            className = 'm-3'
                         />
-                        <Form.Control.Feedback type='invalid'>
-
-                        </Form.Control.Feedback>
-                    </Form.Group>
-
-                    <Form.Group>
-                        <Form.Check 
+                        
+                        <MDBCheckbox
                             type='checkbox'
                             value= {form.debitCard}
                             label="I want Debit Card services"
                             onChange={(e) => setField('debitCard', e.target.checked)}
                             isInvalid = {!!err.debitCard}
+                            
                         />
-                        <Form.Control.Feedback type='invalid'>
-
-                        </Form.Control.Feedback>
-                    </Form.Group>
-
-                    <Form.Group>
-                        <Form.Check 
+                        
+                        <MDBCheckbox
                             type='checkbox'
                             value= {form.netBanking}
                             label="Opt for Net Banking Services"
                             onChange={(e) => setField('netBanking', e.target.checked)}
                             isInvalid = {!!err.netBanking}
+                            
                         />
-                        <Form.Control.Feedback type='invalid'>
-
-                        </Form.Control.Feedback>
-                    </Form.Group>
-
-
-
-                    
-
+                
                     <Button className='mt-4 w-100' type="submit">Apply</Button>
                 </Form>
-            </Card.Body>
-        </Card>
+            </MDBCardBody>
+        </MDBCard>
     </Container>
   )
 }
