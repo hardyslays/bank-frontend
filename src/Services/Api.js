@@ -52,13 +52,13 @@ export const getAccountCustomerDetails = async() => {
 }
 
 export const postAddPayee = async(formData) => {
-    const res = await Authinstance.post('/netbanking/payee', JSON.stringify(formData))
+    const res = await Authinstance.post('/netbanking/beneficiary', JSON.stringify(formData))
 
     return res.data
 }
 
 export const getPayees = async() => {
-    const res = await Authinstance.get('/netbanking/payees')
+    const res = await Authinstance.get('/netbanking/beneficiary')
 
     return res.data
 }

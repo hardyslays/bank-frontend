@@ -57,6 +57,9 @@ export const ApplyForm = () => {
             netBankingBool: form.netBanking?"1":"0"
         }
 
+        //Validation
+        // if()
+
         console.log("Form data :", formData)
         
         postApplyForm(formData)
