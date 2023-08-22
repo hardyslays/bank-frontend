@@ -52,7 +52,8 @@ export const getPayees = async() => {
     return res.data
 }
 export const getAccountCustomerDetails = async() => {
-    const res = await Authinstance.get('/netbanking/account/details')
+    const username = Auth().getUser();
+    const res = await Authinstance.get(`/netbanking/details/${username}`)
 
     return res.data
 }

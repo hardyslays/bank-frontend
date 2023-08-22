@@ -12,7 +12,7 @@ import Auth from '../../Services/Auth'
 
 export const DashboardPage = () => {
     const [page, setPage] = useState('dashboard');
-    const [user, setUser] = useState();
+    const [user, setUser] = useState('');
 
     const navigate = useNavigate();
     const { getToken } = Auth();

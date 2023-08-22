@@ -53,8 +53,10 @@ const AddPayeeModal = ({updatePayee}) => {
                 })
             })
             
-            const data = await res.json()
+            const data = await res
             console.log('resp: ', data)
+            clearField()
+            setVisible(false)
             updatePayee()
         }
         postForm()
