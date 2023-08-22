@@ -10,11 +10,11 @@ export default function Auth() {
     }
 
     const getToken = () => {
-        const tokenString = sessionStorage.getItem('token')
+        const tokenString = JSON.parse(sessionStorage.getItem('token'))
         return tokenString;
     }
     const getUser = () => {
-        const userString = sessionStorage.getItem('user')
+        const userString = JSON.parse(sessionStorage.getItem('user'))
         return userString;
     }
 
