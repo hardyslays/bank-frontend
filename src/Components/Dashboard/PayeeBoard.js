@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import { MDBCard, MDBCardBody, MDBCardText, MDBBtn, MDBCardFooter, MDBModal, MDBModalTitle, MDBModalDialog, MDBModalContent, MDBModalHeader, MDBModalBody, MDBModalFooter, MDBInput, MDBValidation, MDBValidationItem } from 'mdb-react-ui-kit';
 import { Container, Form, Toast } from "react-bootstrap";
 import { getPayees, postAddPayee } from "../../Services/Api";
+import Auth from "../../Services/Auth";
 
 const AddPayeeModal = ({updatePayee}) => {
 
@@ -93,21 +94,25 @@ const AddPayeeModal = ({updatePayee}) => {
 export const PayeeBoard = () => {
 
     const [payees, setPayees] = useState([])
-    const [loading, setLoading] = useState(true)
 
-    // useEffect(() => {
-    //     getPayees()
-    //     .then(data => {
-    //         if(data === 'error'){
-    //             console.log('error')
-    //         }
-    //         else{
-    //             console.log(data)
-    //             setPayees(data)
-    //             setLoading(false)
-    //         }
-    //     })
-    // },[])
+    useEffect(() => {
+        // getPayees()
+
+        const func = async() => {
+            const res = await fetch('http://localhost:8080/api/netbanking/beneficiary/hardyslays',
+            {
+                method:'get',
+                headers:{
+                    'Authorization': `Bearer ${Auth().getToken()}`
+                }
+            })
+            const data = await res.json()
+            console.log(data)
+            
+                setPayees(data)
+        }
+        func()
+    },[])
 
     const updatePayee = () => {
         getPayees()
@@ -123,41 +128,25 @@ export const PayeeBoard = () => {
     }
 
     return(
-<<<<<<< HEAD
         <Container >
-=======
-        <Container className='position-absolute' style={{bottom:'2vw', width: '35vw'}}>
->>>>>>> 8dc0bd17f1237a06e75b013ce5863773bd471aff
+
             <MDBCard className=''>
                 <MDBCardText className='fs-4 pt-3 ps-5'>Your Payees</MDBCardText>
                 <MDBCardBody className='d-flex justify-content-around'>
-                    {loading?
-                    (['Account 1', 'Account 2', "Account 3"].map((name, i) => {
-                        return(
-                            <div>
-                            <img className='shadow-4'
-                            src='assets/default-avatar.png'
-                            alt='avatar'
-                            style={{width: '80px'}}
-                            />
-                            <p className='fs-6 text-center'>{name}</p>
-                            </div>
-                        )
-                    }))
-                    :
-                    (payees.map((name, i) => {
-                        return(
-                            <div>
-                            <img className='shadow-4'
-                            src='assets/default-avatar.png'
-                            alt='avatar'
-                            style={{width: '80px'}}
-                            />
-                            <p className='fs-6 text-center'>{name}</p>
-                            </div>
-                        )
-                    }))
-                } 
+                {payees.map((name, i) => {
+                    return(
+                        <div>
+                        <img className='shadow-4'
+                        src='assets/default-avatar.png'
+                        alt='avatar'
+                        style={{width: '80px'}}
+                        />
+                        <p className='fs-6 text-center'>{name}</p>
+                        </div>
+                    )
+                })}
+                {(payees.length === 0) && <div>
+                    </div>} 
                 </MDBCardBody>
                 
                 <MDBCardFooter className='d-flex justify-content-center'>

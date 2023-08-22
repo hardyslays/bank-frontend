@@ -100,7 +100,7 @@ export const ApplyForm = () => {
                             label='Enter Middle Name'
                             value= {form.mname}
                             onChange={(e) => setField('mname', e.target.value)}
-                            isInvalid = {!!err.mname} required
+                            isInvalid = {!!err.mname}
                             className='m-3'
                         />
                     

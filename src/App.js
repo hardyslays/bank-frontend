@@ -44,15 +44,14 @@ function App() {
     <div className="App">
       <>
       <HeaderLogout/>
-<<<<<<< HEAD
-=======
+
       {!!getToken()?'1':'0'}
->>>>>>> 8dc0bd17f1237a06e75b013ce5863773bd471aff
     {/* //Routes logic */}
 
       {/* {getToken()&&LoggedInRoutes()} */}
       {LoggedInRoutes()}
       <Routes>
+        <Route exact path='/' element={<Navigate to={'/home'} />}/>
         <Route exact path='/home'element={<Home/>} />
         
         <Route path='/register' element={<Register/>} />
@@ -63,11 +62,8 @@ function App() {
         
         <Route path='/apply-success' element={<ApplySuccess/>}/>
 
-<<<<<<< HEAD
         {/* <Route path='*' element={<Navigate to={'/home'}/>} /> */}
-=======
-        <Route path='*' element={<Navigate to={'/home'}/>} />
->>>>>>> 8dc0bd17f1237a06e75b013ce5863773bd471aff
+
       </Routes>
       </>
     

@@ -45,6 +45,12 @@ Authinstance.interceptors.request.use( config => {
     return config;
 })
 
+export const getPayees = async() => {
+    const username = Auth().getUser();
+    const res = await Authinstance.get(`/netbanking/beneficiary/${username}`)
+
+    return res.data
+}
 export const getAccountCustomerDetails = async() => {
     const res = await Authinstance.get('/netbanking/account/details')
 
@@ -57,11 +63,6 @@ export const postAddPayee = async(formData) => {
     return res.data
 }
 
-export const getPayees = async() => {
-    const res = await Authinstance.get('/netbanking/beneficiary')
-
-    return res.data
-}
 
 export const getTransactions = async() => {
     const res = await Authinstance.get('/netbanking/transactions')
