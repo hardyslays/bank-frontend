@@ -27,11 +27,7 @@ function App() {
       <Routes>
         <Route path='/dashboard' element={<DashboardPage/>} />
 
-        <Route path='/admin'>
-            <Route path='login' element = {<AdminLogin/>} />
-            <Route path = 'dashboard' element={ <AdminDashboard/>} />
-            <Route path = 'customer/:id' element={<AdminApproval />} />
-        </Route>
+       
 
         <Route element={<Error/>} />
       </Routes>
@@ -46,8 +42,13 @@ function App() {
       <HeaderLogout/>
       {!!getToken()?'1':'0'}
     {/* //Routes logic */}
-
+    {!!getToken()&&LoggedInRoutes()}
       <Routes>
+      <Route path='/admin'>
+            <Route path='login' element = {<AdminLogin/>} />
+            <Route path = 'dashboard' element={ <AdminDashboard/>} />
+            <Route path = 'customer/:id' element={<AdminApproval />} />
+        </Route>
         <Route exact path='/home'element={<Home/>} />
         
         <Route path='/register' element={<Register/>} />
@@ -58,9 +59,9 @@ function App() {
         
         <Route path='/apply-success' element={<ApplySuccess/>}/>
 
-        <Route path='*' element={<Navigate to={'/home'}/>} />
+        {/* <Route path='*' element={<Navigate to={'/home'}/>} /> */}
       </Routes>
-      {getToken()&&LoggedInRoutes()}
+      
       </>
     
 
