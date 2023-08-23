@@ -30,12 +30,13 @@ function App() {
 
         <Route path='/admin'>
             <Route path='login' element = {<AdminLogin/>} />
-            <Route path = 'dashboard' element={ <AdminDashboard heading="Customers"/>} />
+            <Route path = 'dashboard' element={ <AdminDashboard heading="Accounts and Customers"/>} />
+            <Route path = 'accounts' element={ <AdminDashboard heading="Accounts" />} />
             <Route path = 'all' element={ <AdminDashboard heading="All Customers" />} />
             <Route path = 'approved' element={ <AdminDashboard heading="Approved Customers"/>} />
             <Route path = 'pending' element={ <AdminDashboard heading="Pending Customers"/>} />
             <Route path = 'customer/:id' element={<AdminApproval />} />
-            <Route path = 'customer/disable/:id' element={<DisableCustomer />} />
+            <Route path = 'account/:id' element={<DisableCustomer />} />
         </Route>
 
         <Route element={<Error/>} />
