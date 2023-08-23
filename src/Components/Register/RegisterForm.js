@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { Form, Button, Card } from "react-bootstrap";
 import { useNavigate } from 'react-router-dom';
 import { postRegisterForm } from '../../Services/Api';
-import {MDBCard, MDBCardHeader, MDBCardBody, MDBCardTitle, MDBInput, MDBCheckbox} from 'mdb-react-ui-kit';
+import {MDBCard, MDBCardHeader, MDBCardBody, MDBCardTitle, MDBInput, MDBCheckbox, MDBCardFooter, MDBCardText} from 'mdb-react-ui-kit';
 
 
 export const RegisterForm = () => {
@@ -148,6 +148,10 @@ export const RegisterForm = () => {
                     <Button className='mt-4 w-100' type="submit">Register</Button>
                 </Form>
             </MDBCardBody>
+            <MDBCardFooter>
+                <MDBCardText className='text-center' onClick={() => navigate('/login')} style={{cursor:'pointer'}}>Already Registered? Login Here</MDBCardText>
+                <MDBCardText className='text-center' onClick={() => navigate('/apply')} style={{cursor:'pointer'}}>Don't have an Account? Apply today</MDBCardText>
+            </MDBCardFooter>
         </MDBCard>
     </div>
   )
