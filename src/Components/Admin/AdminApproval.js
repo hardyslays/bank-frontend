@@ -59,8 +59,10 @@ export const AdminApproval = () => {
 
             <Card.Footer className='d-flex justify-content-center'>
                 <ButtonGroup>
+                    {!cust.approvedBool?
                     <Button variant='success' onClick={handleApprove}>Approve</Button>
-                    <Button variant='danger' onClick={handleReject}>Reject</Button>
+                    :""}
+                    {/* <Button variant='danger' onClick={handleReject}>Reject</Button> */}
                 </ButtonGroup>
             </Card.Footer>
         </Card>

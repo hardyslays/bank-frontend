@@ -28,6 +28,19 @@ export const getCustomersAll = async() => {
     return res.data
 }
 
+export const getAccounts = async() => {
+    const res = await instance.get('/get/accounts')
+
+    return res.data
+}
+
+
+export const getAccountById = async(id) => {
+    const res = await instance.get('/get/account/'+id)
+
+    return res.data
+}
+
 export const getCustomerById = async(id) => {
     const res = await instance.get('/customer/'+id)
 
@@ -43,4 +56,15 @@ export const postAdminApprove = async(id) => {
 export const postAdminDISABLE = async(id) => {
     const res = await instance.post('/disable/account/' + id)
     return res
+}
+
+export const postAdminEnable = async(id) => {
+    const res = await instance.post('/enable/account/' + id)
+    return res
+}
+
+export const postAdminCheck = async(id) => {
+    const res = await instance.get('/check/account/' + id)
+    console.log("This is the res:", res.data)
+    return res.data
 }

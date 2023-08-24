@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { ButtonGroup, Col, Card, Button, Row, ListGroup } from 'react-bootstrap'
-import { getCustomers,getCustomersApproved,getCustomersAll } from '../../Services/Admin';
+import { getCustomers,getCustomersApproved,getCustomersAll,getAccounts } from '../../Services/Admin';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -9,147 +9,22 @@ import { useNavigate } from 'react-router-dom';
 export const AdminDashboard = (main_props) => {
 
     const navigate = useNavigate()
-    const [cust, setCust] = useState([
-        {
-            "customerId": "4184938902",
-            "title": "Mr",
-            "firstName": "Himanshu",
-            "middleName": "hh",
-            "lastName": "hh",
-            "fatherName": "hh",
-            "mobileNumber": "9911199111",
-            "emailId": "e@e",
-            "adharNumber": "101020203030",
-            "dob": "2023-08-11",
-            "residentialLine1": "f",
-            "residentialLine2": "hfg",
-            "residentialLandmark": "f",
-            "residentialState": "Delhi",
-            "residentialPincode": "110011",
-            "permanentLine1": "fw",
-            "permanentLine2": "fr",
-            "permanentLandmark": "d",
-            "permanentState": "ni",
-            "permanentPincode": "110011",
-            "occupationType": "none",
-            "sourceOfIncome": "none",
-            "grossAnnualIncome": 0,
-            "netBankingBool": "1",
-            "debitCardBool": "1"
-        },
-        {
-            "customerId": "9253293269",
-            "title": "Ms",
-            "firstName": "Kush",
-            "middleName": "",
-            "lastName": "Rawal",
-            "fatherName": "abc",
-            "mobileNumber": "998726362",
-            "emailId": "gugasiv",
-            "adharNumber": "446713248165",
-            "dob": "2012-12-12",
-            "residentialLine1": "abc",
-            "residentialLine2": "def",
-            "residentialLandmark": "chowk",
-            "residentialState": "maharashtra",
-            "residentialPincode": "411098",
-            "permanentLine1": "dsade",
-            "permanentLine2": "wfed",
-            "permanentLandmark": "das",
-            "permanentState": "maharashtra",
-            "permanentPincode": "411098",
-            "occupationType": "service",
-            "sourceOfIncome": "farm",
-            "grossAnnualIncome": 12333,
-            "netBankingBool": "1",
-            "debitCardBool": "1"
-        },
-        {
-            "customerId": "9659805269",
-            "title": "Ms",
-            "firstName": "Aksh",
-            "middleName": "",
-            "lastName": "Sharma",
-            "fatherName": "abc",
-            "mobileNumber": "998726362",
-            "emailId": "gugasiv",
-            "adharNumber": "446713248165",
-            "dob": "2012-12-12",
-            "residentialLine1": "abc",
-            "residentialLine2": "def",
-            "residentialLandmark": "chowk",
-            "residentialState": "maharashtra",
-            "residentialPincode": "411098",
-            "permanentLine1": "dsade",
-            "permanentLine2": "wfed",
-            "permanentLandmark": "das",
-            "permanentState": "maharashtra",
-            "permanentPincode": "411098",
-            "occupationType": "service",
-            "sourceOfIncome": "farm",
-            "grossAnnualIncome": 12333,
-            "netBankingBool": "1",
-            "debitCardBool": "1"
-        },
-        {
-            "customerId": "9659805269",
-            "title": "Ms",
-            "firstName": "Aksh",
-            "middleName": "",
-            "lastName": "Sharma",
-            "fatherName": "abc",
-            "mobileNumber": "998726362",
-            "emailId": "gugasiv",
-            "adharNumber": "446713248165",
-            "dob": "2012-12-12",
-            "residentialLine1": "abc",
-            "residentialLine2": "def",
-            "residentialLandmark": "chowk",
-            "residentialState": "maharashtra",
-            "residentialPincode": "411098",
-            "permanentLine1": "dsade",
-            "permanentLine2": "wfed",
-            "permanentLandmark": "das",
-            "permanentState": "maharashtra",
-            "permanentPincode": "411098",
-            "occupationType": "service",
-            "sourceOfIncome": "farm",
-            "grossAnnualIncome": 12333,
-            "netBankingBool": "1",
-            "debitCardBool": "1"
-        }
-    ]);
+    const [cust, setCust] = useState([]);
+    const [accounts, setAccounts] = useState([]);
 
     useEffect(() => {
-        if (main_props.heading==="All Customer"){
-            // getCustomers()
             getCustomersAll()
             .then(data => {
                 setCust(data)
                 console.log(data)
             })
-        }
-        else if (main_props.heading==="Approved Customer"){
-            getCustomersApproved()
-            // getCustomersAll()
-            .then(data => {
-                setCust(data)
-                console.log(data)
-            })
-        }
-        else {
-            getCustomers()
-            // getCustomersAll()
-            .then(data => {
-                setCust(data)
-                console.log(data)
-            })
-        }
+        
     }, [])
 
     function CustomCard(props) {
         const routeChange = (path) =>{
             console.log(path);
+            setAccounts([])
             if (path==="/admin/all/"){
                 // getCustomers()
                 getCustomersAll()
@@ -166,11 +41,20 @@ export const AdminDashboard = (main_props) => {
                     console.log(data)
                 })
             }
-            else {
+            else if(path==="/admin/pending/"){
                 getCustomers()
                 // getCustomersAll()
                 .then(data => {
                     setCust(data)
+                    console.log(data)
+                })
+            }
+            else {
+                getAccounts()
+                // getCustomersAll()
+                .then(data => {
+                    setAccounts(data)
+                    setCust([])
                     console.log(data)
                 })
             }
@@ -190,10 +74,62 @@ export const AdminDashboard = (main_props) => {
             </Col>
           );
         }
+    const AccountRow = () => {
+        return (
+            <Row xs={1} md={3} lg={4} className='w-100'>
+                {accounts.map(account => {
+                    return(
+                    <Col key={account.customerId}>
+                    <Card className='m-3' bg='light'>
+                        <Card.Header className='px-3 py-2' as='h5'>CID: {account.customerId}</Card.Header>
+                        <Card.Title className='px-3 py-2'>Acc No.: {`${account.accountNumber}`}</Card.Title>
 
+                        <ListGroup className='list-group-flush'>
+                            <ListGroup.Item>Username: {account.netBankingUserName}</ListGroup.Item>
+                            <ListGroup.Item>Balance:  {account.balance}</ListGroup.Item>
+                        </ListGroup>
+                        <Card.Footer className='w-100 px-3 d-flex justify-content-center'>
+                            <Button variant='info' className='w-50' onClick={() => navigate('/admin/account/' + account.accountNumber)}>More Details</Button>
+                        </Card.Footer>
+                    </Card>
+                </Col>
+                    )}
+                )}
+                
+        </Row>
+        )
+    }
+    const CustomerRow = () => {
+        return (
+            <Row xs={1} md={3} lg={4} className='w-100'>
+                {cust.map(customer => {
+                    return(
+                    <Col key={customer.customerId}>
+                    <Card className='m-3' bg='light'>
+                        <Card.Header className='px-3 py-2' as='h5'>CID: {customer.customerId}</Card.Header>
+                        <Card.Title className='px-3 py-2'>Name: {`${customer.firstName}  ${customer.middleName} ${customer.lastName}`}</Card.Title>
+
+                        <ListGroup className='list-group-flush'>
+                            <ListGroup.Item>D.O.B: {customer.dob}</ListGroup.Item>
+                            <ListGroup.Item>Mobile:  {customer.mobileNumber}</ListGroup.Item>
+                            <ListGroup.Item>Residential Address: {customer.residentialLine1 + '\n' + customer.residentialLine2 + '\n' + customer.residentialState + ' ' + customer.residentialPincode}</ListGroup.Item>
+                        </ListGroup>
+                        <Card.Footer className='w-100 px-3 d-flex justify-content-center'>
+                            <Button variant='info' className='w-50' onClick={() => navigate('/admin/customer/' + customer.customerId)}>More Details</Button>
+                        </Card.Footer>
+                    </Card>
+                </Col>
+                    )}
+                )}
+                
+        </Row>
+        )
+    }
   return (<>
     <h1 className='text-center'>Admin Dashboard</h1>
-    <Row lg={3} mx={5}>
+    <Row lg={4} mx={1}>
+    <CustomCard title="Accounts" desc="This is list of all customers accounts" 
+                url="/admin/accounts/" url_title="Accounts"/>
     <CustomCard title="All" desc="This is list of all customers who have applied" 
                 url="/admin/all/" url_title="Customers"/>
     <CustomCard title="Approved" desc="This is list of all approved customers" 
@@ -202,29 +138,8 @@ export const AdminDashboard = (main_props) => {
                 url="/admin/pending/" url_title="Pending"/>
     </Row>
     <h3 className='text-center'>{main_props.heading}</h3>
-
-    <Row xs={1} md={3} lg={4} className='w-100'>
-        {cust.map(customer => {
-            return(
-            <Col key={customer.customerId}>
-            <Card className='m-3' bg='light'>
-                <Card.Header className='px-3 py-2' as='h5'>CID: {customer.customerId}</Card.Header>
-                <Card.Title className='px-3 py-2'>Name: {`${customer.firstName}  ${customer.middleName} ${customer.lastName}`}</Card.Title>
-
-                <ListGroup className='list-group-flush'>
-                    <ListGroup.Item>D.O.B: {customer.dob}</ListGroup.Item>
-                    <ListGroup.Item>Mobile:  {customer.mobileNumber}</ListGroup.Item>
-                    <ListGroup.Item>Residential Address: {customer.residentialLine1 + '\n' + customer.residentialLine2 + '\n' + customer.residentialState + ' ' + customer.residentialPincode}</ListGroup.Item>
-                </ListGroup>
-                <Card.Footer className='w-100 px-3 d-flex justify-content-center'>
-                    <Button variant='info' className='w-50' onClick={() => navigate('/admin/customer/' + customer.customerId)}>More Details</Button>
-                </Card.Footer>
-            </Card>
-        </Col>
-            )}
-        )}
-           
-    </Row>
+    <CustomerRow/>
+    <AccountRow/>
     </>
   )
 }
