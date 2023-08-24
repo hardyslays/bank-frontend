@@ -15,6 +15,7 @@ import { ApplySuccess } from './Components/Apply/ApplySuccess';
 import { AdminApproval } from './Components/Admin/AdminApproval';
 import { DashboardPage } from './Components/Dashboard/DashboardPage';
 import Auth from './Services/Auth'
+import { DisableCustomer } from './Components/Admin/DisableCustomer';
 
 
 function App() {
@@ -27,7 +28,15 @@ function App() {
       <Routes>
         <Route path='/dashboard' element={<DashboardPage/>} />
 
-       
+        <Route path='/admin'>
+            <Route path='login' element = {<AdminLogin/>} />
+            <Route path = 'dashboard' element={ <AdminDashboard heading="Customers"/>} />
+            <Route path = 'all' element={ <AdminDashboard heading="All Customers" />} />
+            <Route path = 'approved' element={ <AdminDashboard heading="Approved Customers"/>} />
+            <Route path = 'pending' element={ <AdminDashboard heading="Pending Customers"/>} />
+            <Route path = 'customer/:id' element={<AdminApproval />} />
+            <Route path = 'customer/disable/:id' element={<DisableCustomer />} />
+        </Route>
 
         <Route element={<Error/>} />
       </Routes>
@@ -40,15 +49,16 @@ function App() {
     <div className="App">
       <>
       <HeaderLogout/>
+
       {!!getToken()?'1':'0'}
     {/* //Routes logic */}
-    {!!getToken()&&LoggedInRoutes()}
+
+
+      {/* {getToken()&&LoggedInRoutes()} */}
+      {LoggedInRoutes()}
       <Routes>
-      <Route path='/admin'>
-            <Route path='login' element = {<AdminLogin/>} />
-            <Route path = 'dashboard' element={ <AdminDashboard/>} />
-            <Route path = 'customer/:id' element={<AdminApproval />} />
-        </Route>
+        <Route exact path='/' element={<Navigate to={'/home'} />}/>
+
         <Route exact path='/home'element={<Home/>} />
         
         <Route path='/register' element={<Register/>} />
@@ -60,8 +70,9 @@ function App() {
         <Route path='/apply-success' element={<ApplySuccess/>}/>
 
         {/* <Route path='*' element={<Navigate to={'/home'}/>} /> */}
+
+
       </Routes>
-      
       </>
     
 

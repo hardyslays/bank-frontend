@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { ButtonGroup, Col, Card, Button, Row, ListGroup } from 'react-bootstrap'
-import { getCustomers } from '../../Services/Admin';
+import { getCustomers,getCustomersApproved,getCustomersAll } from '../../Services/Admin';
 import { useNavigate } from 'react-router-dom';
 
-export const AdminDashboard = () => {
+
+
+
+export const AdminDashboard = (main_props) => {
 
     const navigate = useNavigate()
     const [cust, setCust] = useState([
@@ -87,27 +90,124 @@ export const AdminDashboard = () => {
             "grossAnnualIncome": 12333,
             "netBankingBool": "1",
             "debitCardBool": "1"
+        },
+        {
+            "customerId": "9659805269",
+            "title": "Ms",
+            "firstName": "Aksh",
+            "middleName": "",
+            "lastName": "Sharma",
+            "fatherName": "abc",
+            "mobileNumber": "998726362",
+            "emailId": "gugasiv",
+            "adharNumber": "446713248165",
+            "dob": "2012-12-12",
+            "residentialLine1": "abc",
+            "residentialLine2": "def",
+            "residentialLandmark": "chowk",
+            "residentialState": "maharashtra",
+            "residentialPincode": "411098",
+            "permanentLine1": "dsade",
+            "permanentLine2": "wfed",
+            "permanentLandmark": "das",
+            "permanentState": "maharashtra",
+            "permanentPincode": "411098",
+            "occupationType": "service",
+            "sourceOfIncome": "farm",
+            "grossAnnualIncome": 12333,
+            "netBankingBool": "1",
+            "debitCardBool": "1"
         }
     ]);
 
     useEffect(() => {
-        getCustomers()
-        .then(data => {
-            setCust(data)
-            console.log(data)
-        })
+        if (main_props.heading==="All Customer"){
+            // getCustomers()
+            getCustomersAll()
+            .then(data => {
+                setCust(data)
+                console.log(data)
+            })
+        }
+        else if (main_props.heading==="Approved Customer"){
+            getCustomersApproved()
+            // getCustomersAll()
+            .then(data => {
+                setCust(data)
+                console.log(data)
+            })
+        }
+        else {
+            getCustomers()
+            // getCustomersAll()
+            .then(data => {
+                setCust(data)
+                console.log(data)
+            })
+        }
     }, [])
+
+    function CustomCard(props) {
+        const routeChange = (path) =>{
+            console.log(path);
+            if (path==="/admin/all/"){
+                // getCustomers()
+                getCustomersAll()
+                .then(data => {
+                    setCust(data)
+                    console.log(data)
+                })
+            }
+            else if (path==="/admin/approved/"){
+                getCustomersApproved()
+                // getCustomersAll()
+                .then(data => {
+                    setCust(data)
+                    console.log(data)
+                })
+            }
+            else {
+                getCustomers()
+                // getCustomersAll()
+                .then(data => {
+                    setCust(data)
+                    console.log(data)
+                })
+            }
+            navigate(path);
+            }
+          return (
+            <Col>
+            <Card style={{ width: '18rem', height:'90%', margin:'auto', padding:'0 10px 0 10px'}}>
+              <Card.Body>
+                <Card.Title>{props.title}</Card.Title>
+                <Card.Text>
+                  {props.desc}
+                </Card.Text>
+                <Button onClick={() => routeChange(props.url)} variant="primary" className='m-3'>{props.url_title}</Button>
+              </Card.Body>
+            </Card>
+            </Col>
+          );
+        }
 
   return (<>
     <h1 className='text-center'>Admin Dashboard</h1>
-
-    <h3 className='text-center'>Customer details</h3>
+    <Row lg={3} mx={5}>
+    <CustomCard title="All" desc="This is list of all customers who have applied" 
+                url="/admin/all/" url_title="Customers"/>
+    <CustomCard title="Approved" desc="This is list of all approved customers" 
+                url="/admin/approved/" url_title="Approved"/>
+    <CustomCard title="Pending" desc="This is list of all unapproved customers" 
+                url="/admin/pending/" url_title="Pending"/>
+    </Row>
+    <h3 className='text-center'>{main_props.heading}</h3>
 
     <Row xs={1} md={3} lg={4} className='w-100'>
         {cust.map(customer => {
             return(
             <Col key={customer.customerId}>
-            <Card className='m-2' bg='light'>
+            <Card className='m-3' bg='light'>
                 <Card.Header className='px-3 py-2' as='h5'>CID: {customer.customerId}</Card.Header>
                 <Card.Title className='px-3 py-2'>Name: {`${customer.firstName}  ${customer.middleName} ${customer.lastName}`}</Card.Title>
 
@@ -123,6 +223,7 @@ export const AdminDashboard = () => {
         </Col>
             )}
         )}
+           
     </Row>
     </>
   )

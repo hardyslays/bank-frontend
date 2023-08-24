@@ -5,11 +5,12 @@ import { Row, Col, Container } from 'react-bootstrap'
 
 import { DetailsCard } from './DetailsCard';
 import { SummaryCard } from './SummaryCard';
+import { PayeeBoard } from './PayeeBoard';
 
 const Col2 = () =>
 {
     return (
-        <Container>
+        <Container className='mb-3'>
     
         <MDBCardText className='pt-4 px-3 fs-3'>Transfer to</MDBCardText>
 
@@ -57,7 +58,8 @@ export const Transfer = () => {
                 <Col md={6}>
                     {/* Content for the right column */}
                     
-                        <Col2 />
+                        <Col2/>
+                        <PayeeBoard/>
                 
                 </Col>
             </Row>

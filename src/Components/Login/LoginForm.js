@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { Form, Button, Card } from "react-bootstrap";
-import {MDBCard, MDBCardHeader, MDBCardBody, MDBCardTitle, MDBInput, MDBCheckbox} from 'mdb-react-ui-kit';
+import {MDBCard, MDBCardHeader, MDBCardBody, MDBCardTitle, MDBInput, MDBCardFooter, MDBCardText} from 'mdb-react-ui-kit';
 
 // import {AuthUser} from '../../Services/auth';
 import { useNavigate } from 'react-router-dom';
@@ -99,6 +99,10 @@ export const LoginForm = () => {
                     <Button className='mt-4 w-100' type="submit">Login</Button>
                 </Form>
             </MDBCardBody>
+            <MDBCardFooter>
+                <MDBCardText className='text-center' onClick={() => navigate('/register')} style={{cursor:'pointer'}}>Register For Net Banking Here</MDBCardText>
+                <MDBCardText className='text-center' onClick={() => navigate('/apply')} style={{cursor:'pointer'}}>Don't have an Account? Apply today</MDBCardText>
+            </MDBCardFooter>
         </MDBCard>
     </div>
   )

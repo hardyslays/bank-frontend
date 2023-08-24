@@ -2,6 +2,8 @@ import React, {useState, useEffect} from "react";
 import { MDBCard, MDBCardBody, MDBCardText, MDBBtn, MDBCardFooter, MDBModal, MDBModalTitle, MDBModalDialog, MDBModalContent, MDBModalHeader, MDBModalBody, MDBModalFooter, MDBInput, MDBValidation, MDBValidationItem } from 'mdb-react-ui-kit';
 import { Container, Form, Toast } from "react-bootstrap";
 import { getPayees, postAddPayee } from "../../Services/Api";
+import { SERVER_URL } from "../../Constants/url";
+import Auth from "../../Services/Auth";
 
 const AddPayeeModal = ({updatePayee}) => {
 
@@ -32,24 +34,48 @@ const AddPayeeModal = ({updatePayee}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        console.log(form)
         if(!isValid(form))return;
+        console.log(form)
         
-        postAddPayee(form)
-        .then(data => {
-            if(data === 'error')
-            {
-                console.log('error')
-            }
-            else{
-                console.log(data)
+        const postForm = async() => {
+            const res = await fetch(SERVER_URL+`/api/netbanking/beneficiary/${Auth().getUser()}`, {
+                method:'post',
+                headers:{        
+                    'Access-Control-Allow-Origin': '*',
+                    'Content-Type':'application/json; charset=utf-8',
+                    'Authorization': `Bearer ${Auth().getToken()}`
+                    
+                },
+                body: JSON.stringify({
+                    'beneficiaryName':form.name,
+                    'beneficiaryAccountNumber':form.acNumber,
+                    'beneficiaryNickName':form.nickname
+                })
+            })
+            
+            const data = await res
+            console.log('resp: ', data)
+            clearField()
+            setVisible(false)
+            updatePayee()
+        }
+        postForm()
 
-                updatePayee()
+        // postAddPayee(form)
+        // .then(data => {
+        //     if(data === 'error')
+        //     {
+        //         console.log('error')
+        //     }
+        //     else{
+        //         console.log(data)
+                
+        //         updatePayee()
 
-                clearField()
-                setVisible(false)
-            }
-        })
+        //         clearField()
+        //         setVisible(false)
+        //     }
+        // })
     }
 
     return(
@@ -93,67 +119,67 @@ const AddPayeeModal = ({updatePayee}) => {
 export const PayeeBoard = () => {
 
     const [payees, setPayees] = useState([])
-    const [loading, setLoading] = useState(true)
 
-    // useEffect(() => {
-    //     getPayees()
-    //     .then(data => {
-    //         if(data === 'error'){
-    //             console.log('error')
-    //         }
-    //         else{
-    //             console.log(data)
-    //             setPayees(data)
-    //             setLoading(false)
-    //         }
-    //     })
-    // },[])
+    useEffect(() => {
+        // getPayees()
+        
+        console.log(Auth().getUser())
+
+        const func = async() => {
+            const res = await fetch(`http://localhost:8080/api/netbanking/beneficiary/${Auth().getUser()}`,
+            {
+                method:'get',
+                headers:{
+                    'Authorization': `Bearer ${Auth().getToken()}`
+                }
+            })
+            const data = await res.json()
+            console.log(data)
+            setPayees(data)
+        }
+        func()
+    },[])
 
     const updatePayee = () => {
-        getPayees()
-        .then(data => {
-            if(data === 'error'){
-                console.log('error')
-            }
-            else{
-                console.log(data)
-                setPayees(data)
-            }
-        })
+
+        const func = async() => {
+            const res = await fetch(`http://localhost:8080/api/netbanking/beneficiary/${Auth().getUser()}`,
+            {
+                method:'get',
+                headers:{
+                    'Authorization': `Bearer ${Auth().getToken()}`
+                }
+            })
+            const data = await res.json()
+            console.log(data)
+            setPayees(data)
+        }
+        func()
     }
 
     return(
-        <Container className='position-absolute' style={{bottom:'2vw', width: '35vw'}}>
+        <Container >
+
             <MDBCard className=''>
                 <MDBCardText className='fs-4 pt-3 ps-5'>Your Payees</MDBCardText>
                 <MDBCardBody className='d-flex justify-content-around'>
-                    {loading?
-                    (['Account 1', 'Account 2', "Account 3"].map((name, i) => {
-                        return(
-                            <div>
-                            <img className='shadow-4'
-                            src='assets/default-avatar.png'
-                            alt='avatar'
-                            style={{width: '80px'}}
-                            />
-                            <p className='fs-6 text-center'>{name}</p>
-                            </div>
-                        )
-                    }))
-                    :
-                    (payees.map((name, i) => {
-                        return(
-                            <div>
-                            <img className='shadow-4'
-                            src='assets/default-avatar.png'
-                            alt='avatar'
-                            style={{width: '80px'}}
-                            />
-                            <p className='fs-6 text-center'>{name}</p>
-                            </div>
-                        )
-                    }))
-                } 
+                {payees.map((payee, i) => {
+                    return(
+                        <div>
+                        <img className='shadow-4'
+                        src='assets/default-avatar.png'
+                        alt='avatar'
+                        style={{width: '80px'}}
+                        />
+                        <p className='fs-6 text-center'>{payee.beneficiaryName}</p>
+                        </div>
+                    )
+                })}
+                {(payees.length === 0) 
+                && 
+                <div className="text-secondary mb-2">
+                    You have no Beneficiaries right now.
+                </div>} 
                 </MDBCardBody>
                 
                 <MDBCardFooter className='d-flex justify-content-center'>
