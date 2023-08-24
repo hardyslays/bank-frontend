@@ -62,3 +62,9 @@ export const postAdminEnable = async(id) => {
     const res = await instance.post('/enable/account/' + id)
     return res
 }
+
+export const postAdminCheck = async(id) => {
+    const res = await instance.get('/check/account/' + id)
+    console.log("This is the res:", res.data)
+    return res.data
+}

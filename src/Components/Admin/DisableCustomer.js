@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { getCustomerById, postAdminEnable, getAccountById } from '../../Services/Admin';
 import { ButtonGroup, Button, Card } from 'react-bootstrap';
 
-import { postAdminDISABLE } from '../../Services/Admin';
+import { postAdminDISABLE, postAdminCheck } from '../../Services/Admin';
 
 export const DisableCustomer = () => {
     console.log("chl pda")
@@ -26,6 +26,7 @@ export const DisableCustomer = () => {
                 setCust(data_cust)
                 setLoaded(true)
             })
+            postAdminCheck(data.customerId).then(d=>setCheck(d));
         })
         
         
@@ -41,7 +42,7 @@ export const DisableCustomer = () => {
 
 
     const handleEnable = () => {
-        postAdminEnable(id)
+        postAdminEnable(account.customerId)
         navigate('/admin/dashboard')
     }
 
@@ -71,8 +72,12 @@ export const DisableCustomer = () => {
 
             <Card.Footer className='d-flex justify-content-center'>
                 <ButtonGroup>
-                    <Button variant='danger' onClick={handleDisable}>{check?"Disable":"Enable"}</Button>
-                </ButtonGroup>
+                    {check?
+                    <Button variant='danger' onClick={handleDisable}>Disable</Button>
+                        :
+                    <Button variant='primary' onClick={handleEnable}>Enable</Button>
+                    }
+                    </ButtonGroup>
             </Card.Footer>
         </Card>
     }
