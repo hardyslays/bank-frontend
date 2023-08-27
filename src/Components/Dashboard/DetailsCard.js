@@ -19,10 +19,11 @@ export const DetailsCard = () => {
     }, []);
 
     return (
-        <MDBCard className='m-3 mt-4 p-2 bg-secondary shadow-1-strong text-white'>
-            <MDBCardText className='pt-3 px-4 fs-2 '>Savings Account</MDBCardText>
-            <MDBCard className='m-1 pt-3'>
+       
+       
             
+            <MDBCard className='m-1 pt-3' style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)', color: '#fff' }}>
+            <MDBCardText className='pt-3 px-4 fs-2 '>Savings Account</MDBCardText>
                 <div className='d-flex justify-content-around align-items-center'>
                 <p className='fs-3'>A/C balance</p>
                 <p className='fs-2'>INR {balance}</p>
@@ -40,6 +41,6 @@ export const DetailsCard = () => {
                 </div>
             </div>
             </MDBCard>
-        </MDBCard>
+       
     )
 }

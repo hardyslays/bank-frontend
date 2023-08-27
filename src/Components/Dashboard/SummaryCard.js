@@ -45,7 +45,7 @@ export const SummaryCard = () => {
     
 
     return (
-        <MDBCard className='mx-2 mt-4 h-50'>
+        <MDBCard className='mx-2 mt-4 h-50' style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)', color: '#fff' }}>
             <MDBCardText className='pt-3 ps-5 fs-3'>Balance Summary</MDBCardText>
             {TransactionChart(data)}
         </MDBCard>

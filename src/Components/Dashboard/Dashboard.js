@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { Row, Col, Container } from 'react-bootstrap'
+import { Row, Col, Container, Card } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
 
 import { MDBCard, MDBCardBody, MDBCardText, MDBCardTitle, MDBTabs, MDBTabsItem, MDBTabsLink, MDBTabsContent, MDBTabsPane, MDBRow, MDBCol, MDBContainer } from 'mdb-react-ui-kit';
@@ -20,21 +20,22 @@ const SideArea = () => {
     }
 
     return (
+        <Card className='text-center' style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)', color: '#fff' }}> 
         <Container className='py-3'>
         <p className='fs-3 mt-2 ms-3'>Recent Transactions</p>
         <MDBTabs className='mb-3 ms-3 fs-0.75'>
             <MDBTabsItem>
-            <MDBTabsLink onClick={() => handleClick('all')} active={active === 'all'}>
+            <MDBTabsLink onClick={() => handleClick('all')} active={active === 'all'} className={active === 'all' ? 'active-link' : ''}>
                 All
             </MDBTabsLink>
             </MDBTabsItem>
             <MDBTabsItem>
-            <MDBTabsLink onClick={() => handleClick('credit')} active={active === 'credit'}>
+            <MDBTabsLink onClick={() => handleClick('credit')} active={active === 'credit'} className={active === 'credit' ? 'active-link' : ''}>
                 Credit
             </MDBTabsLink>
             </MDBTabsItem>
             <MDBTabsItem>
-            <MDBTabsLink onClick={() => handleClick('debit')} active={active === 'debit'}>
+            <MDBTabsLink onClick={() => handleClick('debit')} active={active === 'debit'}  className={active === 'debit' ? 'active-link' : ''}>
                 Debit
             </MDBTabsLink>
             </MDBTabsItem>
@@ -119,6 +120,8 @@ const SideArea = () => {
             </MDBTabsPane>
         </MDBTabsContent>
         </Container>
+        </Card>
+        
     )
 }
 
@@ -126,19 +129,23 @@ export const Dashboard = () => {
     
 
   return (
+    <div className='background-container'>
     <div className='w-100 m-0'>
         <Container>
             <Row>
                 <Col md={6}>
+                
                     <DetailsCard />
                     <SummaryCard />
                 </Col>
                 <Col md={5}>
                     <SideArea />
+                    <br></br>
                     <PayeeBoard />
                 </Col>
             </Row>
         </Container>
+    </div>
     </div>
   )
 }
