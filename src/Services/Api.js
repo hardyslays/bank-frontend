@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { SERVER_URL } from "../Constants/url";
+import { SERVER_URL } from "../Utils/url";
 import Auth from './Auth'
 
 let instance = axios.create({
@@ -11,86 +11,126 @@ let instance = axios.create({
     }
 })
 
+const unauthGetOptions = {
+    method:'get',
+    headers:{
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type':'application/json; charset=utf-8'
+    }
+}
+
+const unauthPostOptions = form => ({
+    method:'post',
+    headers:{
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type':'application/json; charset=utf-8'
+    },
+    body: JSON.stringify(form)
+})
 
 // Unauthenticated API calls
 export const postApplyForm = async(formData) => {
-    const res = await instance.post('/customer/apply', JSON.stringify(formData))
-    return res.data
+
+    const res = await fetch(SERVER_URL+'/api/customer/apply', unauthPostOptions(formData))
+
+    return res
 }
 
 export const postRegisterForm = async(id, formData) => {
-    const  res = await instance.post(`/netbanking/create/account/${id}`, JSON.stringify(formData))
-    return res.data
+    const res = await fetch(SERVER_URL+`/api/netbanking/account/${id}`, unauthPostOptions(formData))
+
+    return res
 }
 
 export const login = async(loginData) => {
     const res = await instance.post('/netbanking/login', JSON.stringify(loginData))
+    
 
     return res.data
 }
 
 
 //Authenticated API calls
-let Authinstance = axios.create({
-    baseURL: SERVER_URL + '/api',
+
+const authGetOptions = {
+    method:'get',
     headers:{
         'Access-Control-Allow-Origin': '*',
-        'Content-Type':'application/json; charset=utf-8'
-    }
+        'Content-Type':'application/json; charset=utf-8',
+        'Authorization': `Bearer ${Auth().getToken()}`
+    },
+}
+
+const authPostOptions = form => ({
+    method:'post',
+    headers:{
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type':'application/json; charset=utf-8',
+        'Authorization': `Bearer ${Auth().getToken()}`
+    },
+    body: JSON.stringify(form)
 })
 
-Authinstance.interceptors.request.use( config => {
-    const token = Auth().getToken();
-    config.headers.Authorization =  `Bearer ${token}`;
-    return config;
-})
+export const getAccountCustomerDetails = async() => {
+    const username = Auth().getUser();
+    
+    const res = await fetch(SERVER_URL+`/api/netbanking/details/${username}`, authGetOptions)
+
+    return res
+}
 
 export const getPayees = async() => {
     const username = Auth().getUser();
-    const res = await Authinstance.get(`/netbanking/beneficiary/${username}`)
+    const res = await fetch(SERVER_URL+`/api/netbanking/beneficiary/${username}`, authGetOptions)
 
-    return res.data
-}
-export const getAccountCustomerDetails = async() => {
-    const username = Auth().getUser();
-    const res = await Authinstance.get(`/netbanking/details/${username}`)
-
-    return res.data
+    return res
 }
 
 export const postAddPayee = async(formData) => {
-    const res = await Authinstance.post('/netbanking/beneficiary', JSON.stringify(formData))
 
-    return res.data
+    const res = await fetch(SERVER_URL+`/api/netbanking/beneficiary/${Auth().getUser()}`, authPostOptions(formData))
+
+    return res
 }
 
+export const postTransfer = async(formData) => {
+    const res = await fetch(SERVER_URL+`/api/transaction/transfer/${Auth().getUser()}`, authPostOptions(formData))
+
+    return res
+}
 
 export const getTransactions = async() => {
-    const res = await Authinstance.get('/netbanking/transactions')
+    const res = await fetch(SERVER_URL+`/api/transaction/${Auth().getUser()}`, authGetOptions)
 
-    return res.data
+    return res
 }
 
-export const getRecentTransactions = async(num) => {
-    const res = await Authinstance.get(`/netbanking/transactions/${num}`)
+export const getAccountNameByAccountNumber = async(acNum) => {
+    const res = await fetch(SERVER_URL+`/api/account/accountName/${acNum}`, authGetOptions)
 
-    return res.data
+    return res.text()
 }
+// export const getTransactions = async() => {
+//     const res = await Authinstance.get('/netbanking/transactions')
 
-export const getRecentCreditTransactions = async(num) => {
-    const res = await Authinstance.get(`/netbanking/transactions/credit/${num}`)
+//     return res.data
+// }
 
-    return res.data
-}
+// export const getRecentTransactions = async(num) => {
+//     const res = await Authinstance.get(`/netbanking/transactions/${num}`)
 
-export const getRecentDebitTransactions = async(num) => {
-    const res = await Authinstance.get(`/netbanking/transactions/debit/${num}`)
+//     return res.data
+// }
 
-    return res.data
-}
+// export const getRecentCreditTransactions = async(num) => {
+//     const res = await Authinstance.get(`/netbanking/transactions/credit/${num}`)
 
-export const getBalance = async() => {
-    const res = await Authinstance.get('/netbanking/balance')
+//     return res.data
+// }
 
-    return res.data
-}
+// export const getRecentDebitTransactions = async(num) => {
+//     const res = await Authinstance.get(`/netbanking/transactions/debit/${num}`)
+
+//     return res.data
+// }
+

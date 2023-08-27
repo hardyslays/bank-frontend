@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Form, Button, Card, Container, FloatingLabel } from 'react-bootstrap';
 import {MDBCard, MDBCardHeader, MDBCardBody, MDBCardTitle, MDBInput, MDBCheckbox} from 'mdb-react-ui-kit';
 
-import { SERVER_URL } from '../../Constants/url';
 import { postApplyForm } from '../../Services/Api';
 import { useNavigate } from 'react-router-dom';
 
@@ -56,9 +55,19 @@ export const ApplyForm = () => {
             return 0;
         }
 
+        if(form.phone.length !== 10){
+            setErr({...err,'phone' : 'Phone number should be of 10 digits '})
+            return 0;
+        }
+
         
         if(!form.aadhar){
             setErr({...err,'aadhar' : 'Please enter your Aadhar Number'})
+            return 0;
+        }
+        
+        if(form.aadhar.length !== 12){
+            setErr({...err,'aadhar' : 'Aadharnumber houd be of 12 digits'})
             return 0;
         }
 
@@ -160,11 +169,23 @@ export const ApplyForm = () => {
         if(!isValid(form))  return;
 
         postApplyForm(formData)
-        .then(data => {
-            console.log(data)
-            navigate('/apply-success')
+        .then(res => {
+            console.log(res)
+            if(!res.ok){
+                return res.json().then(data => {
+                    console.log("Err data:", data)
+                    throw new Error(data.errors.join('\n'))
+                })
+            }
+            else{
+                console.log(res.json())
+                navigate('/apply-success')
+            }
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+            console.log(typeof err)
+            window.alert(`Application rejected by server:\n ${err}`)
+        })
     }
 
   return (
@@ -182,7 +203,7 @@ export const ApplyForm = () => {
                             className='m-3'
                         />
 
-                         <div id='fnameErr' className='ms-2 mb-2 form-text text-danger' style={{display:(!!err.fname)?'':'none'}}>{err.fname}</div>
+                         <div id='fnameErr' className='ms-2 mb-1 form-text text-danger' style={{display:(!!err.fname)?'':'none'}}>{err.fname}</div>
 
                         <MDBInput 
                             type='text' 
@@ -204,7 +225,7 @@ export const ApplyForm = () => {
                             className='m-3'
                         />
                     
-                        <div id ='lnameEr' className = 'ms-2 mb-2 form-text text-danger' style = {{display:(!!err.lname)?'':'none'}}>{err.lname}</div>
+                        <div id ='lnameEr' className = 'ms-2 mb-1 form-text text-danger' style = {{display:(!!err.lname)?'':'none'}}>{err.lname}</div>
                         <MDBInput 
                             type='text' 
                             label='Enter Last Name'
@@ -214,7 +235,7 @@ export const ApplyForm = () => {
                             className={['m-3', (!!err.lname)?'is-invalid':''].join(' ')}
                         />
 
-                         <div id ='frameEr' className = 'ms-2 mb-2 form-text text-danger' style = {{display:(!!err.frname)?'':'none'}}>{err.frname}</div>
+                         <div id ='frameEr' className = 'ms-2 mb-1 form-text text-danger' style = {{display:(!!err.frname)?'':'none'}}>{err.frname}</div>
                         <MDBInput 
                             type='text' 
                             label='Enter Father Name'
@@ -224,7 +245,7 @@ export const ApplyForm = () => {
                             className = {['m-3', (!!err.frname)?'is-invalid':''].join(' ')}
                         />
 
-                         <div id ='dobEr' className = 'ms-2 mb-2 form-text text-danger' style = {{display:(!!err.dob)?'':'none'}}>{err.dob}</div>
+                         <div id ='dobEr' className = 'ms-2 mb-1 form-text text-danger' style = {{display:(!!err.dob)?'':'none'}}>{err.dob}</div>
                        
                         <MDBInput 
                             type='date' 
@@ -232,10 +253,10 @@ export const ApplyForm = () => {
                             value= {form.dob}
                             onChange={(e) => setField('dob', e.target.value)}
                             isInvalid = {!!err.dob} 
-                            className = {['m-3', (!!err.dob)?'is-invalid':''].join(' ')}
+                            className = {['m-3 pe-4', (!!err.dob)?'is-invalid':''].join(' ')}
                         />
                         
-                        <div id ='emailEr' className = 'ms-2 mb-2 form-text text-danger' style = {{display:(!!err.email)?'':'none'}}>{err.email}</div>
+                        <div id ='emailEr' className = 'ms-2 mb-1 form-text text-danger' style = {{display:(!!err.email)?'':'none'}}>{err.email}</div>
                         <MDBInput 
                             type='email' 
                             label="Enter Email ID"
@@ -246,7 +267,7 @@ export const ApplyForm = () => {
                         />
                       
                          
-                      <div id ='phonwEr' className = 'ms-2 mb-2 form-text text-danger' style = {{display:(!!err.phone)?'':'none'}}>{err.phone}</div>
+                      <div id ='phonwEr' className = 'ms-2 mb-1 form-text text-danger' style = {{display:(!!err.phone)?'':'none'}}>{err.phone}</div>
                         <MDBInput 
                             type='number' 
                             label="Enter Phone No."
@@ -256,7 +277,7 @@ export const ApplyForm = () => {
                             className = {['m-3', (!!err.phone)?'is-invalid':''].join(' ')}
                         />
 
-                          <div id ='aadharEr' className = 'ms-2 mb-2 form-text text-danger' style = {{display:(!!err.aadhar)?'':'none'}}>{err.aadhar}</div>
+                          <div id ='aadharEr' className = 'ms-2 mb-1 form-text text-danger' style = {{display:(!!err.aadhar)?'':'none'}}>{err.aadhar}</div>
 
                         <MDBInput 
                             type='number' 
@@ -267,7 +288,7 @@ export const ApplyForm = () => {
                             className =  {['m-3', (!!err.aadhar)?'is-invalid':''].join(' ')}
                         />
                        
-                       <div id ='resiaddEr' className = 'ms-2 mb-2 form-text text-danger' style = {{display:(!!err.resiadd)?'':'none'}}>{err.resiadd}</div>
+                       <div id ='resiaddEr' className = 'ms-2 mb-1 form-text text-danger' style = {{display:(!!err.resiadd)?'':'none'}}>{err.resiadd}</div>
                         <MDBInput 
                             type='text' 
                             label="Residential Address Line 1"
@@ -285,7 +306,7 @@ export const ApplyForm = () => {
                             isInvalid = {!!err.resiadd2} 
                         />
                        
-                       <div id ='landmarkEr' className = 'ms-2 mb-2 form-text text-danger' style = {{display:(!!err.landmark)?'':'none'}}>{err.landmark}</div>
+                       <div id ='landmarkEr' className = 'ms-2 mb-1 form-text text-danger' style = {{display:(!!err.landmark)?'':'none'}}>{err.landmark}</div>
                         <MDBInput 
                             type='text' 
                             label="Residential Landmark"
@@ -295,7 +316,7 @@ export const ApplyForm = () => {
                             className = {['m-3', (!!err.landmark)?'is-invalid':''].join(' ')}
                         />
                       
-                      <div id ='stateEr' className = 'ms-2 mb-2 form-text text-danger' style = {{display:(!!err.resistate)?'':'none'}}>{err.resistate}</div>
+                      <div id ='stateEr' className = 'ms-2 mb-1 form-text text-danger' style = {{display:(!!err.resistate)?'':'none'}}>{err.resistate}</div>
                         <MDBInput 
                             type='text' 
                             label="Residential State"
@@ -305,7 +326,7 @@ export const ApplyForm = () => {
                             className = {['m-3', (!!err.resistate)?'is-invalid':''].join(' ')}
                         />
                       
-                      <div id ='pincodeEr' className = 'ms-2 mb-2 form-text text-danger' style = {{display:(!!err.pincode)?'':'none'}}>{err.pincode}</div>
+                      <div id ='pincodeEr' className = 'ms-2 mb-1 form-text text-danger' style = {{display:(!!err.pincode)?'':'none'}}>{err.pincode}</div>
                         <MDBInput 
                             type='number' 
                             label="Residential Pincode"
@@ -315,7 +336,7 @@ export const ApplyForm = () => {
                             className = {['m-3', (!!err.pincode)?'is-invalid':''].join(' ')}
                         />
                        
-                       <div id ='permaddEr' className = 'ms-2 mb-2 form-text text-danger' style = {{display:(!!err.permadd)?'':'none'}}>{err.permadd}</div>
+                       <div id ='permaddEr' className = 'ms-2 mb-1 form-text text-danger' style = {{display:(!!err.permadd)?'':'none'}}>{err.permadd}</div>
                         <MDBInput 
                             type='text' 
                             label="Permanent Address Line 1"
@@ -334,7 +355,7 @@ export const ApplyForm = () => {
                             className = 'm-3'
                         />
                        
-                       <div id ='perlandmarkEr' className = 'ms-2 mb-2 form-text text-danger' style = {{display:(!!err.perlandmark)?'':'none'}}>{err.perlandmark}</div>
+                       <div id ='perlandmarkEr' className = 'ms-2 mb-1 form-text text-danger' style = {{display:(!!err.perlandmark)?'':'none'}}>{err.perlandmark}</div>
                         <MDBInput 
                             type='text' 
                             label="Permanent Landmark"
@@ -344,7 +365,7 @@ export const ApplyForm = () => {
                             className = {['m-3', (!!err.perlandmark)?'is-invalid':''].join(' ')}
                         />
                       
-                      <div id ='perstateEr' className = 'ms-2 mb-2 form-text text-danger' style = {{display:(!!err.perstate)?'':'none'}}>{err.perstate}</div>
+                      <div id ='perstateEr' className = 'ms-2 mb-1 form-text text-danger' style = {{display:(!!err.perstate)?'':'none'}}>{err.perstate}</div>
                         <MDBInput 
                             type='text' 
                             label="Permanent State"
@@ -354,7 +375,7 @@ export const ApplyForm = () => {
                             className = {['m-3', (!!err.perstate)?'is-invalid':''].join(' ')}
                         />
                         
-                        <div id ='perpincodeEr' className = 'ms-2 mb-2 form-text text-danger' style = {{display:(!!err.perpincode)?'':'none'}}>{err.perpincode}</div>
+                        <div id ='perpincodeEr' className = 'ms-2 mb-1 form-text text-danger' style = {{display:(!!err.perpincode)?'':'none'}}>{err.perpincode}</div>
                         <MDBInput 
                             type='number' 
                             label="Permanent Pincode"
@@ -364,7 +385,7 @@ export const ApplyForm = () => {
                             className = {['m-3', (!!err.perpincode)?'is-invalid':''].join(' ')}
                         />
                         
-                        <div id ='OccupEr' className = 'ms-2 mb-2 form-text text-danger' style = {{display:(!!err.occup)?'':'none'}}>{err.occup}</div>
+                        <div id ='OccupEr' className = 'ms-2 mb-1 form-text text-danger' style = {{display:(!!err.occup)?'':'none'}}>{err.occup}</div>
                         <MDBInput 
                             type='text' 
                             label="Occupation"
@@ -374,7 +395,7 @@ export const ApplyForm = () => {
                             className = {['m-3', (!!err.occup)?'is-invalid':''].join(' ')}
                         />
                        
-                       <div id ='SourceofIncomeEr' className = 'ms-2 mb-2 form-text text-danger' style = {{display:(!!err.incomeSource)?'':'none'}}>{err.incomeSource}</div>
+                       <div id ='SourceofIncomeEr' className = 'ms-2 mb-1 form-text text-danger' style = {{display:(!!err.incomeSource)?'':'none'}}>{err.incomeSource}</div>
                         <MDBInput 
                             type='text' 
                             label="Source of Income"
@@ -384,7 +405,7 @@ export const ApplyForm = () => {
                             className =  {['m-3', (!!err.incomeSource)?'is-invalid':''].join(' ')}
                         />
                         
-                        <div id ='IncomeEr' className = 'ms-2 mb-2 form-text text-danger' style = {{display:(!!err.income)?'':'none'}}>{err.income}</div>
+                        <div id ='IncomeEr' className = 'ms-2 mb-1 form-text text-danger' style = {{display:(!!err.income)?'':'none'}}>{err.income}</div>
                         <MDBInput 
                             type='number' 
                             label="Gross Annual Income"

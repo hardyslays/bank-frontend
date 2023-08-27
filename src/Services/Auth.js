@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 
-import { SERVER_URL } from "../Constants/url";
+import { SERVER_URL } from "../Utils/url";
 
 export default function Auth() {
         const saveToken = (user, token) => {

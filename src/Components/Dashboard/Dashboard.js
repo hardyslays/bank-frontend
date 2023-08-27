@@ -7,10 +7,13 @@ import { MDBCard, MDBCardBody, MDBCardText, MDBCardTitle, MDBTabs, MDBTabsItem, 
 import { SummaryCard } from './SummaryCard';
 import { DetailsCard } from './DetailsCard';
 import { PayeeBoard } from './PayeeBoard';
+import { getTransactions } from '../../Services/Api';
+import { stringToDate } from '../../Utils/Date';
 
 const SideArea = () => {
 
     const [active, setactive] = useState('all')
+    const [transactions, setTransactions] = useState([])
 
     const handleClick = (val) => {
         if(val === active){
@@ -18,6 +21,53 @@ const SideArea = () => {
         }
         setactive(val)
     }
+
+    useEffect(() => {
+        getTransactions()
+        .then(res => {
+            if(!res.ok){
+                return res.text()
+                .then(data => {
+                    console.log("Err: ", data)
+                    throw new Error(data)
+                }
+                )
+            }
+            else{
+                res.json()
+                .then(data => {   
+                    data.debit = data.debit.map( item => {
+                        return {
+                            ...item,
+                            type: 'debit',
+                        }
+                    })
+                    data.credit = data.credit.map( item => {
+                        return {
+                            ...item,
+                            type: 'credit',
+                        }
+                    })                 
+
+                    let allTrans = data.debit.concat(data.credit)
+                    allTrans = allTrans.map( item => {
+                        return {
+                            ...item,
+                            timestamp: stringToDate(item.timestamp)
+                        }
+                    })
+                    allTrans.sort((a, b) => {
+                        return b.timestamp - a.timestamp
+                    })
+
+                    setTransactions(allTrans)
+                })
+            }
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }, [])
 
     return (
         <Container className='py-3'>
@@ -43,20 +93,16 @@ const SideArea = () => {
         <MDBTabsContent>
             <MDBTabsPane show={active === 'all'}>
                 <MDBContainer>
-                {[
-                    {icon:'icon', ac: 'Account 1', amount: 'Rs 1000'},
-                    {icon:'icon', ac: 'Account 2', amount: 'Rs 500'},
-                    {icon:'icon', ac: 'Account 3', amount: 'Rs 200'},
-                    {icon:'icon', ac: 'Account 1', amount: 'Rs 1000'},
-                ].map((item, index) => {
+                {transactions.slice(0, 3)
+                .map((item) => {
                     return(
                         <>
-                        <MDBRow key={index} className='mb-2 fs-6'>
+                        <MDBRow key={item.referenceId} className='mb-2 fs-6'>
                             <MDBCol size={2} className='text-end'>
-                                {item.icon}
+                                {item.type === "credit"? "CR": "DB"}
                             </MDBCol>
                             <MDBCol  size={6}>
-                                {item.ac}
+                                {item.type === "credit"? item.fromAccount: item.beneficiaryAccount}
                             </MDBCol>
                             <MDBCol className='text-end'>
                                 {item.amount}
@@ -70,42 +116,39 @@ const SideArea = () => {
             </MDBTabsPane>
             <MDBTabsPane show={active === 'credit'}>
             <MDBContainer>
-                {[
-                    {icon:'icon', ac: 'Account 1', amount: 'Rs 1000'},
-                    {icon:'icon', ac: 'Account 3', amount: 'Rs 200'}
-                ].map((item, index) => {
-                    return(
-                        <>
-                        <MDBRow key={index} className='mb-2 fs-6'>
-                            <MDBCol size={2} className='text-end'>
-                                {item.icon}
-                            </MDBCol>
-                            <MDBCol  size={6}>
-                                {item.ac}
-                            </MDBCol>
-                            <MDBCol className='text-end'>
-                                {item.amount}
-                            </MDBCol>
-                        </MDBRow>
-                        <div className='border-bottom border-secondary border-2 mb-2'></div>
-                        </>
-                        )
-                    })}
+            {transactions.filter(item => item.type === 'credit').slice(0, 3)
+            .map((item) => {
+                return(
+                    <>
+                    <MDBRow key={item.referenceId} className='mb-2 fs-6'>
+                        <MDBCol size={2} className='text-end'>
+                            {item.type === "credit"? "CR": "DB"}
+                        </MDBCol>
+                        <MDBCol  size={6}>
+                            {item.type === "credit"? item.fromAccount: item.beneficiaryAccount}
+                        </MDBCol>
+                        <MDBCol className='text-end'>
+                            {item.amount}
+                        </MDBCol>
+                    </MDBRow>
+                    <div className='border-bottom border-secondary border-2 mb-2'></div>
+                    </>
+                    )
+                })}
                 </MDBContainer> 
             </MDBTabsPane>
             <MDBTabsPane show={active === 'debit'}>
             <MDBContainer>
-                {[
-                    {icon:'icon', ac: 'Account 2', amount: 'Rs 500'},
-                ].map((item, index) => {
+                {transactions.filter(item => item.type === 'debit').slice(0, 3)
+                .map((item) => {
                     return(
                         <>
-                        <MDBRow key={index} className='mb-2 fs-6'>
+                        <MDBRow key={item.referenceId} className='mb-2 fs-6'>
                             <MDBCol size={2} className='text-end'>
-                                {item.icon}
+                                {item.type === "credit"? "CR": "DB"}
                             </MDBCol>
                             <MDBCol  size={6}>
-                                {item.ac}
+                                {item.type === "credit"? item.fromAccount: item.beneficiaryAccount}
                             </MDBCol>
                             <MDBCol className='text-end'>
                                 {item.amount}
