@@ -4,6 +4,7 @@ import { Col, Container, Row, ListGroup } from 'react-bootstrap'
 import { RegisterForm } from './RegisterForm';
 import { useNavigate } from 'react-router-dom';
 
+import BankImg from '../../assets/home_bg.jpg'
 import Auth from '../../Services/Auth'
 
 export const Register = () => {
@@ -19,19 +20,27 @@ export const Register = () => {
         }
     }, [])
 
-    return (
-        <Container fluid='true' className='justify-content-center'>
-        <Row style={{width:'100%'}} className='justify-content-center'>
-            <Col style={{border:'solid 1px green'}} fluid="xs sm" md={{span: 4, order: 2}} className='my-5'>
+    return (<div style={{width: '100%', height:'100%'}} className='bgGradient'>
+        <Container className='w-100 h-100 m-0 p-0 d-flex justify-content-center align-items-center'>
+        <Row className='align-items-center h-100'>
+            <Col fluid="xs sm" md={8} className='m-0 p-0 h-100'>
+                <div className='bg-image h-100'>
+                    <img src={BankImg} className='w-100 h-100' alt='img' style={{objectFit:'cover', height: '100vh'}}></img>
+                    <div className='mask' style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)' }}>
+                        <div className='d-flex justify-content-center align-items-center h-100'>
+                            <p className='text-white' style={{fontSize: '2.5rem'}}>Vaishali Bank Ltd.</p>
+                        </div>
+                    </div>
+                </div>
+            </Col>
+            <Col fluid="xs sm" md={4} className='my-3'>
                 <Container>
                     <RegisterForm/>
                 </Container>
             </Col>
-            <Col style={{border:'solid 1px red'}} fluid="xs sm" md={{span: 7, order: 1}} className='my-5'>
-
-            </Col>
         </Row>
     </Container>
+    </div>
     )
 }
 

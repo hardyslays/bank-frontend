@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Form, Button, Card, Container, FloatingLabel } from 'react-bootstrap';
-import {MDBCard, MDBCardHeader, MDBCardBody, MDBCardTitle, MDBInput, MDBCheckbox} from 'mdb-react-ui-kit';
+import {MDBCard, MDBCardHeader, MDBCardBody, MDBCardTitle, MDBInput, MDBCheckbox, MDBCardFooter} from 'mdb-react-ui-kit';
+import { ListGroup } from 'react-bootstrap';
 
 import { postApplyForm } from '../../Services/Api';
 import { useNavigate } from 'react-router-dom';
@@ -189,10 +190,11 @@ export const ApplyForm = () => {
     }
 
   return (
-    <Container className='p-10'>
+    <Container className='p-0 w-100'>
         <MDBCard>
-            <MDBCardHeader tag='h2' className='text-center mb-2'>Apply for New Account</MDBCardHeader>
+            <MDBCardHeader tag='h2' className='text-center mb-2'>Apply in Vaishali Bank LTD.</MDBCardHeader>
             <MDBCardBody>
+                <MDBCardTitle tag='h5' className='text-center mb-4'>Please fill the form below to apply for a new account</MDBCardTitle>
                 <Form onSubmit = {handleSubmit}>
                         <MDBInput 
                             type='text' 
@@ -433,9 +435,24 @@ export const ApplyForm = () => {
                             
                         />
                 
-                    <Button className='mt-4 w-100' type="submit">Apply</Button>
+                    <Button className='mt-4 w-100' type="submit">Apply for a New Account</Button>
                 </Form>
             </MDBCardBody>
+
+            <MDBCardFooter>
+            <ListGroup className="list-group-flush text-center">
+                        <ListGroup.Item 
+                            style={{cursor:'pointer'}} 
+                            onClick={() => navigate('/login')}>
+                            Already a Customer? Log In
+                        </ListGroup.Item>
+                        <ListGroup.Item 
+                            style={{cursor:'pointer'}} 
+                            onClick={() => navigate('/register')}>
+                            New User? Register
+                        </ListGroup.Item>
+            </ListGroup>
+            </MDBCardFooter>
         </MDBCard>
     </Container>
   )

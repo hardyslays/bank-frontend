@@ -25,10 +25,16 @@ export default function Auth() {
         }
     })
 
+    const removeToken = () => {
+        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('user');
+    }
+
     return {
         auth,
         getToken,
         getUser,
-        'setToken': saveToken
+        'setToken': saveToken,
+        removeToken
     }
 }

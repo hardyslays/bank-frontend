@@ -20,7 +20,7 @@ export const DetailsCard = () => {
     }, []);
 
     return (
-        <MDBCard className='m-3 mt-4 p-2 bg-secondary shadow-1-strong text-white'>
+        <MDBCard className='m-3 mt-4 p-2 bg-dark shadow-1-strong text-white'>
             <MDBCardText className='pt-3 px-4 fs-2 '>Savings Account</MDBCardText>
             <MDBCard className='m-1 pt-3'>
             

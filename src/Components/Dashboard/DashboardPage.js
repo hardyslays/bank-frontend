@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Row, Col, Nav, Navbar } from 'react-bootstrap';
+import {faRightToBracket} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
 
 import { Dashboard } from './Dashboard';
@@ -9,6 +11,7 @@ import {AcDetails} from './AcDetails';
 
 
 import Auth from '../../Services/Auth'
+import { MDBBtn } from 'mdb-react-ui-kit';
 
 export const DashboardPage = () => {
     const [page, setPage] = useState('dashboard');
@@ -24,21 +27,34 @@ export const DashboardPage = () => {
         }
         setUser(Auth().getUser());
     }, [])
+    
+    const Logout = () => {
+        Auth().removeToken();
+        navigate('/home', {replace: true})
+    }
 
   return (
-    <Row className='m-0 p-0 mh-100'>
-        <Col md={2} style={{border:'solid 1px red'}} className='p-0'>
-            <Navbar bg="light" data-bs-theme="light" className='align-items-center justify-content-start h-100 w-100 flex-column'>
-                <Navbar.Brand className='text-center fs-5'>Hello, {user.charAt(0).toUpperCase() + user.slice(1)}</Navbar.Brand>
-                <Nav className='flex-column'defaultActiveKey={'dashboard'} onSelect={key => setPage(key)}>
-                    <Nav.Link eventKey={'dashboard'}>DashBoard</Nav.Link>
-                    <Nav.Link eventKey={'statement'}>A/C Statements</Nav.Link>
-                    <Nav.Link eventKey={'transfer'}>Transfer Funds</Nav.Link>
-                    <Nav.Link eventKey={'details'}>Account Details</Nav.Link>
+    <Row className='m-0 p-0 h-100' style={{backgroundColor: 'white'}}>
+        <Col md={2} className='p-0 dashboard-sidebar'>
+            <Navbar bg="dark" data-bs-theme="dark" className='align-items-center justify-content-between flex-column text-white  dashboard-sidebar'>
+                <Navbar.Brand className='text-center text-white fs-3 mt-2'>Hello, {user.charAt(0).toUpperCase() + user.slice(1)}</Navbar.Brand>
+                
+                <Navbar.Toggle />
+                <Navbar.Collapse className='justify-content-end'>
+                <Nav className='flex-column text-white' defaultActiveKey={'dashboard'} onSelect={key => setPage(key)}>
+                    <Nav.Link className='text-white' eventKey={'dashboard'}>DashBoard</Nav.Link>
+                    <Nav.Link className='text-white' eventKey={'statement'}>A/C Statements</Nav.Link>
+                    <Nav.Link className='text-white' eventKey={'transfer'}>Transfer Funds</Nav.Link>
+                    <Nav.Link className='text-white' eventKey={'details'}>Account Details</Nav.Link>
                 </Nav>
+                </Navbar.Collapse>
+                <MDBBtn color='light' rippleColor='dark' onClick={Logout}>
+                <FontAwesomeIcon icon={faRightToBracket} />
+                    &nbsp;&nbsp;Logout
+                    </MDBBtn>
             </Navbar>
         </Col>
-        <Col className='p-0'>
+        <Col className='p-0 d-flex justify-content-center align-items-center'>
             {(page==='dashboard')&&<Dashboard/>}
             {(page==='statement')&&<Statement/>}
             {(page==='transfer')&&<Transfer/>}
