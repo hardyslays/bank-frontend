@@ -10,6 +10,7 @@ export const DetailsCard = () => {
     useEffect(() => {
         //To fetch data from backend
         getAccountCustomerDetails()
+        .then(res => res.json())
         .then(data => {
             console.log(data)
             setAcNumber(data.accountNumber)

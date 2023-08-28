@@ -32,16 +32,12 @@ export const RegisterForm = () => {
             return 0;
         }
 
-        if(form.acNumber.length!==14){
-            setErr({...err,'acNumber' : '14 Digits Account Number required'})
-            return 0;
-        }
-
+        
         if(!form.username){
             setErr({...err,'username' : 'Username is required'})
             return 0;
         }
-
+        
         
         if(!form.loginPass){
             setErr({...err,'loginPass' : 'Login Password is required'})
@@ -53,24 +49,28 @@ export const RegisterForm = () => {
             setErr({...err,'CLoginPass' : 'Confirm Login Password is required'})
             return 0;
         }
-
+        
         
         if(!form.TransPass){
             setErr({...err,'TransPass' : 'Transaction Password is required'})
             return 0;
         }
-
+        
         
         if(!form.CTransPass){
             setErr({...err,'CTransPass' : 'Confirm Transaction Password is required'})
             return 0;
         }
-
+        
         if(!form.otp){
             setErr({...err,'otp' : 'OTP is required'})
             return 0;
         }
         
+        if(form.acNumber.length!==14){
+            setErr({...err,'acNumber' : '14 Digits Account Number required'})
+            return 0;
+        }
 
         return 1;
     }
@@ -111,17 +111,23 @@ export const RegisterForm = () => {
         }
 
         postRegisterForm(form.acNumber, regisform)
-        .then(data => {
-            if(data === 'duplicate'){
-                window.alert("This account number is already registered")
-                return;
+        .then(res => {
+            console.log(res)
+            if(!res.ok){
+                return res.text()
+                .then(data => {
+                    console.log(data)
+                    throw new Error(data)
+                })
             }
-            console.log(data)
-            navigate('/login')
+            else{
+                console.log(res.json())
+                navigate('/login')
+            }
         })
         .catch(err => {
-            console.log('ERR: ')
             console.log(err)
+            window.alert(`Registration rejected by server:\n${err.message}`)
         })
         
 

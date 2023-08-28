@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import { MDBCard, MDBCardBody, MDBCardText, MDBBtn, MDBCardFooter, MDBModal, MDBModalTitle, MDBModalDialog, MDBModalContent, MDBModalHeader, MDBModalBody, MDBModalFooter, MDBInput, MDBValidation, MDBValidationItem } from 'mdb-react-ui-kit';
 import { Container, Form, Toast } from "react-bootstrap";
 import { getPayees, postAddPayee } from "../../Services/Api";
-import { SERVER_URL } from "../../Constants/url";
+import { SERVER_URL } from "../../Utils/url";
 import Auth from "../../Services/Auth";
 
 const AddPayeeModal = ({updatePayee}) => {
@@ -37,45 +37,33 @@ const AddPayeeModal = ({updatePayee}) => {
         if(!isValid(form))return;
         console.log(form)
         
-        const postForm = async() => {
-            const res = await fetch(SERVER_URL+`/api/netbanking/beneficiary/${Auth().getUser()}`, {
-                method:'post',
-                headers:{        
-                    'Access-Control-Allow-Origin': '*',
-                    'Content-Type':'application/json; charset=utf-8',
-                    'Authorization': `Bearer ${Auth().getToken()}`
-                    
-                },
-                body: JSON.stringify({
-                    'beneficiaryName':form.name,
-                    'beneficiaryAccountNumber':form.acNumber,
-                    'beneficiaryNickName':form.nickname
-                })
-            })
-            
-            const data = await res
-            console.log('resp: ', data)
-            clearField()
-            setVisible(false)
-            updatePayee()
+        const formData = {
+            'beneficiaryName': form.name,
+            'beneficiaryAccountNumber': form.acNumber,
+            'beneficiaryNickName': form.nickname
         }
-        postForm()
 
-        // postAddPayee(form)
-        // .then(data => {
-        //     if(data === 'error')
-        //     {
-        //         console.log('error')
-        //     }
-        //     else{
-        //         console.log(data)
-                
-        //         updatePayee()
-
-        //         clearField()
-        //         setVisible(false)
-        //     }
-        // })
+        postAddPayee(formData)
+        .then(res => {
+            if(!res.ok){
+                return res.text()
+                .then(data => {
+                    console.log(data)
+                    throw new Error(data)
+                })
+            }
+            else{
+                const data = res.json()
+                console.log('resp: ', data)
+                clearField()
+                setVisible(false)
+                updatePayee()
+            }
+        })
+        .catch(err => {
+            console.log(err)
+            window.alert(`Server error while adding Payee details:\n${err.message}`)
+        })
     }
 
     return(
@@ -93,7 +81,7 @@ const AddPayeeModal = ({updatePayee}) => {
                     <MDBModalBody>    
 
                         <div id='nameErr' className='ms-2 mb-2 form-text text-danger' style={{display:(!!err.name)?'':'none'}}>{err.name}</div>
-                        <MDBInput className={['mb-4', (!!err.name)?'is-invalid':''].join(' ')} type='text' id='name' label='Payee Name' value={form.name} onChange={e => setField('name', e.target.value)}aria-describedby='nameErr' required/>
+                        <MDBInput className={['mb-4', (!!err.name)?'is-invalid':''].join(' ')} type='text' id='name' label='Payee Name' value={form.name} onChange={e => setField('name', e.target.value)} aria-describedby='nameErr' required/>
 
                         <div id='acNumberErr' className='ms-2 mb-2 form-text text-danger' style={{display:(!!err.acNumber)?'':'none'}}>{err.acNumber}</div>
 
@@ -121,40 +109,23 @@ export const PayeeBoard = () => {
     const [payees, setPayees] = useState([])
 
     useEffect(() => {
-        // getPayees()
-        
-        console.log(Auth().getUser())
-
-        const func = async() => {
-            const res = await fetch(`http://localhost:8080/api/netbanking/beneficiary/${Auth().getUser()}`,
-            {
-                method:'get',
-                headers:{
-                    'Authorization': `Bearer ${Auth().getToken()}`
-                }
-            })
-            const data = await res.json()
+        getPayees()
+        .then(res => res.json())
+        .then(data => {
             console.log(data)
             setPayees(data)
-        }
-        func()
+        })
+
     },[])
 
     const updatePayee = () => {
 
-        const func = async() => {
-            const res = await fetch(`http://localhost:8080/api/netbanking/beneficiary/${Auth().getUser()}`,
-            {
-                method:'get',
-                headers:{
-                    'Authorization': `Bearer ${Auth().getToken()}`
-                }
-            })
-            const data = await res.json()
+        getPayees()
+        .then(res => res.json())
+        .then(data => {
             console.log(data)
             setPayees(data)
-        }
-        func()
+        })
     }
 
     return(

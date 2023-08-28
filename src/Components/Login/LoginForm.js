@@ -65,8 +65,8 @@ export const LoginForm = () => {
                 return;
             }
             setToken(formData.userName, data)
-            navigate('/dashboard')
         })
+        .then(() => navigate('/dashboard'))
     }
 
 

@@ -49,7 +49,7 @@ function App() {
   return (
     <div className="App">
       <>
-      <HeaderLogout/>
+      {/* <HeaderLogout/> */}
 
       {!!getToken()?'1':'0'}
     {/* //Routes logic */}
