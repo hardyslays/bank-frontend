@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import { MDBCard, MDBCardBody, MDBCardText, MDBBtn, MDBCardFooter, MDBModal, MDBModalTitle, MDBModalDialog, MDBModalContent, MDBModalHeader, MDBModalBody, MDBModalFooter, MDBInput, MDBValidation, MDBValidationItem } from 'mdb-react-ui-kit';
 import { Container, Form, Toast } from "react-bootstrap";
 import { getPayees, postAddPayee } from "../../Services/Api";
+import { SERVER_URL } from "../../Utils/url";
 import Auth from "../../Services/Auth";
 
 const AddPayeeModal = ({updatePayee}) => {
@@ -33,23 +34,35 @@ const AddPayeeModal = ({updatePayee}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        console.log(form)
         if(!isValid(form))return;
+        console.log(form)
         
-        postAddPayee(form)
-        .then(data => {
-            if(data === 'error')
-            {
-                console.log('error')
+        const formData = {
+            'beneficiaryName': form.name,
+            'beneficiaryAccountNumber': form.acNumber,
+            'beneficiaryNickName': form.nickname
+        }
+
+        postAddPayee(formData)
+        .then(res => {
+            if(!res.ok){
+                return res.text()
+                .then(data => {
+                    console.log(data)
+                    throw new Error(data)
+                })
             }
             else{
-                console.log(data)
-
-                updatePayee()
-
+                const data = res.json()
+                console.log('resp: ', data)
                 clearField()
                 setVisible(false)
+                updatePayee()
             }
+        })
+        .catch(err => {
+            console.log(err)
+            window.alert(`Server error while adding Payee details:\n${err.message}`)
         })
     }
 
@@ -68,7 +81,7 @@ const AddPayeeModal = ({updatePayee}) => {
                     <MDBModalBody>    
 
                         <div id='nameErr' className='ms-2 mb-2 form-text text-danger' style={{display:(!!err.name)?'':'none'}}>{err.name}</div>
-                        <MDBInput className={['mb-4', (!!err.name)?'is-invalid':''].join(' ')} type='text' id='name' label='Payee Name' value={form.name} onChange={e => setField('name', e.target.value)}aria-describedby='nameErr' required/>
+                        <MDBInput className={['mb-4', (!!err.name)?'is-invalid':''].join(' ')} type='text' id='name' label='Payee Name' value={form.name} onChange={e => setField('name', e.target.value)} aria-describedby='nameErr' required/>
 
                         <div id='acNumberErr' className='ms-2 mb-2 form-text text-danger' style={{display:(!!err.acNumber)?'':'none'}}>{err.acNumber}</div>
 
@@ -96,34 +109,22 @@ export const PayeeBoard = () => {
     const [payees, setPayees] = useState([])
 
     useEffect(() => {
-        // getPayees()
-
-        const func = async() => {
-            const res = await fetch('http://localhost:8080/api/netbanking/beneficiary/hardyslays',
-            {
-                method:'get',
-                headers:{
-                    'Authorization': `Bearer ${Auth().getToken()}`
-                }
-            })
-            const data = await res.json()
+        getPayees()
+        .then(res => res.json())
+        .then(data => {
             console.log(data)
-            
-                setPayees(data)
-        }
-        func()
+            setPayees(data)
+        })
+
     },[])
 
     const updatePayee = () => {
+
         getPayees()
+        .then(res => res.json())
         .then(data => {
-            if(data === 'error'){
-                console.log('error')
-            }
-            else{
-                console.log(data)
-                setPayees(data)
-            }
+            console.log(data)
+            setPayees(data)
         })
     }
 
@@ -133,7 +134,7 @@ export const PayeeBoard = () => {
             <MDBCard className=''>
                 <MDBCardText className='fs-4 pt-3 ps-5'>Your Payees</MDBCardText>
                 <MDBCardBody className='d-flex justify-content-around'>
-                {payees.map((name, i) => {
+                {payees.map((payee, i) => {
                     return(
                         <div>
                         <img className='shadow-4'
@@ -141,12 +142,15 @@ export const PayeeBoard = () => {
                         alt='avatar'
                         style={{width: '80px'}}
                         />
-                        <p className='fs-6 text-center'>{name}</p>
+                        <p className='fs-6 text-center'>{payee.beneficiaryName}</p>
                         </div>
                     )
                 })}
-                {(payees.length === 0) && <div>
-                    </div>} 
+                {(payees.length === 0) 
+                && 
+                <div className="text-secondary mb-2">
+                    You have no Beneficiaries right now.
+                </div>} 
                 </MDBCardBody>
                 
                 <MDBCardFooter className='d-flex justify-content-center'>

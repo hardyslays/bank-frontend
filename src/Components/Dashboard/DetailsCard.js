@@ -7,19 +7,17 @@ export const DetailsCard = () => {
     const [acNumber, setAcNumber] = useState(10203040506070)
     const [acOwner, setAcOwner] = useState('Mr. Abc Xyz')
 
-    // useEffect(() => {
-    //     //To fetch data from backend
-    //     getAccountCustomerDetails()
-    //     .then(data => {
-    //         setAcNumber(data.accountNumber)
-    //         setAcOwner(`${data.title} ${data.firstName} ${data.lastName}`)
-    //     })
-
-    //     getBalance()
-    //     .then(data => {
-    //         setBalance(data)
-    //     })
-    // }, []);
+    useEffect(() => {
+        //To fetch data from backend
+        getAccountCustomerDetails()
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            setAcNumber(data.accountNumber)
+            setAcOwner(`${data.title} ${data.firstName} ${data.middleName} ${data.lastName}`)
+            setBalance(data.balance)
+        })
+    }, []);
 
     return (
         <MDBCard className='m-3 mt-4 p-2 bg-secondary shadow-1-strong text-white'>
