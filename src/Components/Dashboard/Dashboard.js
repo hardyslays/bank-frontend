@@ -20,7 +20,7 @@ const SideArea = () => {
     }
 
     return (
-        <Card className='text-center' style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)', color: '#fff' }}> 
+        <Card className='text-center' style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)', color: '#fff' }}> 
         <Container className='py-3'>
         <p className='fs-3 mt-2 ms-3'>Recent Transactions</p>
         <MDBTabs className='mb-3 ms-3 fs-0.75'>

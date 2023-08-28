@@ -72,8 +72,8 @@ export const LoginForm = () => {
                             onChange={(e) => setField('password', e.target.value)}
                             isInvalid={!!err.pass}
                             required
-                            className='m-3'
-                            style={{ color: 'white' }}
+                            className='m-3 white-text'
+                            
                         />
 
                         <Button className='mt-4 w-100' type='submit'>

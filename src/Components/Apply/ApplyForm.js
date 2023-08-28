@@ -71,14 +71,16 @@ export const ApplyForm = () => {
     }
 
   return (
+    <div className='background-container'>
+
     <Container className='p-10'>
-        <MDBCard>
+        <MDBCard style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)', color: '#fff' }}>
             <MDBCardHeader tag='h2' className='text-center mb-2'>Apply for New Account</MDBCardHeader>
             <MDBCardBody>
                 <Form onSubmit = {handleSubmit}>
                         <MDBInput 
                             type='text' 
-                            label='Enter Title'
+                            label={<label className="form-label" style={{ color: 'white' }}>Enter Title</label>}
                             value= {form.title}
                             onChange={(e) => setField('title', e.target.value)}
                             isInvalid = {!!err.title} required
@@ -88,16 +90,16 @@ export const ApplyForm = () => {
                     
                         <MDBInput 
                             type='text' 
-                            label='Enter First Name'
+                            label={<label className="form-label" style={{ color: 'white' }}>Enter First Name</label>}
                             value= {form.fname}
                             onChange={(e) => setField('fname', e.target.value)}
                             isInvalid = {!!err.fname} required
-                            className='m-3'
+                            className='text-light'
                         />
                         
                         <MDBInput 
                             type='text' 
-                            label='Enter Middle Name'
+                            label={<label className="form-label" style={{ color: 'white' }}>Enter Middle Name</label>}
                             value= {form.mname}
                             onChange={(e) => setField('mname', e.target.value)}
                             isInvalid = {!!err.mname}
@@ -106,7 +108,7 @@ export const ApplyForm = () => {
                     
                         <MDBInput 
                             type='text' 
-                            label='Enter Last Name'
+                            label={<label className="form-label" style={{ color: 'white' }}>Enter Last Name</label>}
                             value= {form.lname}
                             onChange={(e) => setField('lname', e.target.value)}
                             isInvalid = {!!err.lname} required
@@ -115,7 +117,7 @@ export const ApplyForm = () => {
 
                         <MDBInput 
                             type='text' 
-                            label='Enter Father Name'
+                            label={<label className="form-label" style={{ color: 'white' }}>Enter Father's name</label>}
                             value= {form.frname}
                             onChange={(e) => setField('frname', e.target.value)}
                             isInvalid = {!!err.frname} required
@@ -124,7 +126,7 @@ export const ApplyForm = () => {
                        
                         <MDBInput 
                             type='date' 
-                            label="Enter Date of Birth"
+                            label={<label className="form-label" style={{ color: 'white' }}>Enter Date of Birth</label>}
                             value= {form.dob}
                             onChange={(e) => setField('dob', e.target.value)}
                             isInvalid = {!!err.dob} required
@@ -133,7 +135,7 @@ export const ApplyForm = () => {
                         
                         <MDBInput 
                             type='email' 
-                            label="Enter Email ID"
+                            label={<label className="form-label" style={{ color: 'white' }}>Enter Email ID</label>}
                             value= {form.email}
                             onChange={(e) => setField('email', e.target.value)}
                             isInvalid = {!!err.email} required
@@ -142,7 +144,7 @@ export const ApplyForm = () => {
                       
                         <MDBInput 
                             type='number' 
-                            label="Enter Phone No."
+                            label={<label className="form-label" style={{ color: 'white' }}>Enter Phone Number</label>}
                             value= {form.phone}
                             onChange={(e) => setField('phone', e.target.value)}
                             isInvalid = {!!err.phone} required
@@ -151,7 +153,7 @@ export const ApplyForm = () => {
                       
                         <MDBInput 
                             type='number' 
-                            label="Enter Aadhar Number"
+                            label={<label className="form-label" style={{ color: 'white' }}>Enter Aadhar Number</label>}
                             value= {form.aadhar}
                             onChange={(e) => setField('aadhar', e.target.value)}
                             isInvalid = {!!err.aadhar} required
@@ -160,7 +162,7 @@ export const ApplyForm = () => {
                        
                         <MDBInput 
                             type='text' 
-                            label="Residential Address Line 1"
+                            label={<label className="form-label" style={{ color: 'white' }}>Residential Line 1</label>}
                             value= {form.resiadd}
                             onChange={(e) => setField('resiadd', e.target.value)}
                             isInvalid = {!!err.resiadd} required
@@ -169,7 +171,7 @@ export const ApplyForm = () => {
                     
                         <MDBInput 
                             type='text' 
-                            label="Residential Address Line 2"
+                            label={<label className="form-label" style={{ color: 'white' }}>Residential Line 2</label>}
                             value= {form.resiadd2}
                             onChange={(e) => setField('resiadd2', e.target.value)}
                             isInvalid = {!!err.resiadd2} required
@@ -177,7 +179,7 @@ export const ApplyForm = () => {
                        
                         <MDBInput 
                             type='text' 
-                            label="Residential Landmark"
+                            label={<label className="form-label" style={{ color: 'white' }}>Residential Landmark</label>}
                             value= {form.landmark}
                             onChange={(e) => setField('landmark', e.target.value)}
                             isInvalid = {!!err.landmark} required
@@ -186,7 +188,7 @@ export const ApplyForm = () => {
                       
                         <MDBInput 
                             type='text' 
-                            label="Residential State"
+                            label={<label className="form-label" style={{ color: 'white' }}>Residential State</label>}
                             value= {form.resistate}
                             onChange={(e) => setField('resistate', e.target.value)}
                             isInvalid = {!!err.resistate} required
@@ -195,7 +197,7 @@ export const ApplyForm = () => {
                       
                         <MDBInput 
                             type='number' 
-                            label="Residential Pincode"
+                            label={<label className="form-label" style={{ color: 'white' }}>Residential Pnincode</label>}
                             value= {form.pincode}
                             onChange={(e) => setField('pincode', e.target.value)}
                             isInvalid = {!!err.pincode} required
@@ -204,7 +206,7 @@ export const ApplyForm = () => {
                        
                         <MDBInput 
                             type='text' 
-                            label="Permanent Address Line 1"
+                            label={<label className="form-label" style={{ color: 'white' }}>Permanent Address Line 1</label>}
                             value= {form.permadd}
                             onChange={(e) => setField('permadd', e.target.value)}
                             isInvalid = {!!err.permadd} required
@@ -213,7 +215,7 @@ export const ApplyForm = () => {
                     
                         <MDBInput 
                             type='text' 
-                            label="Permanent Address Line 2"
+                            label={<label className="form-label" style={{ color: 'white' }}>Permanent Address Line 2</label>}
                             value= {form.permadd2}
                             onChange={(e) => setField('permadd2', e.target.value)}
                             isInvalid = {!!err.permadd2} required
@@ -222,7 +224,7 @@ export const ApplyForm = () => {
                        
                         <MDBInput 
                             type='text' 
-                            label="Permanent Landmark"
+                            label={<label className="form-label" style={{ color: 'white' }}>Permanent Landmark</label>}
                             value= {form.perlandmark}
                             onChange={(e) => setField('perlandmark', e.target.value)}
                             isInvalid = {!!err.perlandmark} required
@@ -231,7 +233,7 @@ export const ApplyForm = () => {
                       
                         <MDBInput 
                             type='text' 
-                            label="Permanent State"
+                            label={<label className="form-label" style={{ color: 'white' }}>Permanent State</label>}
                             value= {form.perstate}
                             onChange={(e) => setField('perstate', e.target.value)}
                             isInvalid = {!!err.perstate} required
@@ -240,7 +242,7 @@ export const ApplyForm = () => {
                         
                         <MDBInput 
                             type='number' 
-                            label="Permanent Pincode"
+                            label={<label className="form-label" style={{ color: 'white' }}>Permanent Pincode</label>}
                             value= {form.perpincode}
                             onChange={(e) => setField('perpincode', e.target.value)}
                             isInvalid = {!!err.perpincode} required
@@ -248,8 +250,7 @@ export const ApplyForm = () => {
                         />
                         
                         <MDBInput 
-                            type='text' 
-                            label="Occupation"
+                            type='text'                          label={<label className="form-label" style={{ color: 'white' }}>Occupation</label>}
                             value= {form.occup}
                             onChange={(e) => setField('occup', e.target.value)}
                             isInvalid = {!!err.occup} required
@@ -258,7 +259,7 @@ export const ApplyForm = () => {
                        
                         <MDBInput 
                             type='text' 
-                            label="Source of Income"
+                            label={<label className="form-label" style={{ color: 'white' }}>Source of Income</label>}
                             value= {form.incomeSource}
                             onChange={(e) => setField('incomeSource', e.target.value)}
                             isInvalid = {!!err.incomeSource} required
@@ -267,7 +268,7 @@ export const ApplyForm = () => {
                         
                         <MDBInput 
                             type='number' 
-                            label="Gross Annual Income"
+                            label={<label className="form-label" style={{ color: 'white' }}>Gross Annual Income</label>}
                             value= {form.income}
                             onChange={(e) => setField('income', e.target.value)}
                             isInvalid = {!!err.income} required
@@ -297,5 +298,6 @@ export const ApplyForm = () => {
             </MDBCardBody>
         </MDBCard>
     </Container>
+    </div>
   )
 }

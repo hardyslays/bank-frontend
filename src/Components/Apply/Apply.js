@@ -3,6 +3,7 @@ import { ApplyForm } from './ApplyForm'
 
 import Auth from '../../Services/Auth'
 import { useNavigate } from 'react-router-dom'
+import { Container } from 'react-bootstrap'
 
 export const Apply = () => {
     const navigate = useNavigate();
@@ -20,7 +21,9 @@ export const Apply = () => {
     return(
         <>
         {!getToken()?'1':'0'}
+        <Container style={{width:"500px"}}>
         <ApplyForm/>
+        </Container>
         </>
     )
 }

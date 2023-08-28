@@ -1,7 +1,7 @@
 import { MDBCard , MDBCardText, MDBCardTitle, MDBInput, MDBSelect } from 'mdb-react-ui-kit';
 import { MDBDropdown,MDBBtn, MDBDropdownMenu, MDBDropdownToggle, MDBDropdownItem } from 'mdb-react-ui-kit';
 import React, {useMemo, useState} from 'react'
-import { Row, Col, Container } from 'react-bootstrap'
+import { Row, Col, Container, Card } from 'react-bootstrap'
 
 import { DetailsCard } from './DetailsCard';
 import { SummaryCard } from './SummaryCard';
@@ -10,6 +10,7 @@ import { PayeeBoard } from './PayeeBoard';
 const Col2 = () =>
 {
     return (
+        <Card className='text-center' style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)', color: '#fff' }}>
         <Container className='mb-3'>
     
         <MDBCardText className='pt-4 px-3 fs-3'>Transfer to</MDBCardText>
@@ -39,14 +40,17 @@ const Col2 = () =>
         Continue
       </MDBBtn>
       </div>
+      
              
     
 </Container>
+</Card>
 
     )
 }
 export const Transfer = () => {
   return (
+    <div className='background-container'>
     <div className='w-100 m-0'>
     <Container>
             <Row>
@@ -59,11 +63,13 @@ export const Transfer = () => {
                     {/* Content for the right column */}
                     
                         <Col2/>
+                        <br></br>
                         <PayeeBoard/>
                 
                 </Col>
             </Row>
         </Container>
+        </div>
         </div>
     
 );

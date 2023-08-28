@@ -73,86 +73,92 @@ export const RegisterForm = () => {
     }
 
 
-  return (
-    <div>
-        <MDBCard>
-            <MDBCardHeader className='text-center px-2 py-3' as='h3'>Register for Net Banking</MDBCardHeader>
-            <MDBCardBody>
+    return (
+        <div className='background-container'>
+          <div>
+            <MDBCard style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)', color: 'white' }}>
+              <MDBCardHeader className='text-center px-2 py-3' as='h3'>Register for Net Banking</MDBCardHeader>
+              <MDBCardBody>
                 <Form onSubmit={handleSubmit}>
-                    
-                        <MDBInput
-                            type='number' 
-                            label='Enter Account Number'
-                            value= {form.acNumber}
-                            onChange={(e) => setField('acNumber', e.target.value)}
-                            isInvalid = {!!err.acNumber}
-                            required
-                            className='m-3'
-                        />
-                        
-                        <MDBInput
-                            type='text'
-                           label='Enter Username'
-                            value= {form.username}
-                            onChange={(e) => setField('username', e.target.value)}
-                            isInvalid = {!!err.username}
-                            required 
-                            className='m-3'
-                        />
-                        
-                        <MDBInput
-                            type='password'
-                           label='Enter Login Password'
-                            value= {form.loginPass}
-                            onChange={(e) => setField('loginPass', e.target.value)}
-                            isInvalid = {!!err.loginPass}
-                            required 
-                            className='m-3'
-                        />
-                      
-                        <MDBInput
-                            type='password'
-                           label='Confirm Login Password'
-                            value= {form.CLoginPass}
-                            onChange={(e) => setField('CLoginPass', e.target.value)}
-                            isInvalid = {!!err.CLoginPass}
-                            required 
-                        />
-                      
-                        <MDBInput
-                            type='password'
-                           label='Enter Transaction Password'
-                            value={form.TransPass}
-                            onChange={(e) => setField('TransPass', e.target.value)}
-                            required 
-                            className='m-3'
-                        />
-                       
-                        <MDBInput
-                            type='password'
-                           label='Confirm Transaction Password'
-                            value={form.CTransPass}
-                            onChange={(e) => setField('CTransPass', e.target.value)}
-                            required 
-                        />
-                        
-                        <MDBInput
-                            type='number'
-                           label='Enter OTP'
-                            value={form.otp}
-                            onChange={(e) => setField('otp', e.target.value)}
-                            required
-                            className='m-3'
-                        />
-                  
-                    <Button className='mt-4 w-100' type="submit">Register</Button>
+                  <MDBInput
+                    type='number'
+                    label={<label className="form-label" style={{ color: 'white' }}>Enter Account Number</label>}
+                    value={form.acNumber}
+                    onChange={(e) => setField('acNumber', e.target.value)}
+                    isInvalid={!!err.acNumber}
+                    required
+                    className='m-3'
+                  />
+    
+                  <MDBInput
+                    type='text'
+                    label={<label className="form-label" style={{ color: 'white' }}>Enter username</label>}
+                    value={form.username}
+                    onChange={(e) => setField('username', e.target.value)}
+                    isInvalid={!!err.username}
+                    required
+                    className='m-3'
+                  />
+    
+                  <MDBInput
+                    type='password'
+                    label={<label className="form-label" style={{ color: 'white' }}>Enter Login password</label>}
+                    value={form.loginPass}
+                    onChange={(e) => setField('loginPass', e.target.value)}
+                    isInvalid={!!err.loginPass}
+                    required
+                    className='m-3'
+                  />
+    
+                  <MDBInput
+                    type='password'
+                    label={<label className="form-label" style={{ color: 'white' }}>Confirm Login password</label>}
+                    value={form.CLoginPass}
+                    onChange={(e) => setField('CLoginPass', e.target.value)}
+                    isInvalid={!!err.CLoginPass}
+                    required
+                  />
+    
+                  <MDBInput
+                    type='password'
+                    label={<label className="form-label" style={{ color: 'white' }}>Enter Transaction Password</label>}
+                    value={form.TransPass}
+                    onChange={(e) => setField('TransPass', e.target.value)}
+                    required
+                    className='m-3'
+                  />
+    
+                  <MDBInput
+                    type='password'
+                    label={<label className="form-label" style={{ color: 'white' }}>Confirm Transaction password</label>}
+                    value={form.CTransPass}
+                    onChange={(e) => setField('CTransPass', e.target.value)}
+                    required
+                  />
+    
+                  <MDBInput
+                    type='number'
+                    label={<label className="form-label" style={{ color: 'white' }}>Enter OTP</label>}
+                    value={form.otp}
+                    onChange={(e) => setField('otp', e.target.value)}
+                    required
+                    className='m-3'
+                  />
+    
+                  <Button className='mt-4 w-100' type="submit">Register</Button>
                 </Form>
-            </MDBCardBody>
-            <MDBCardFooter>
-                <MDBCardText className='text-center' onClick={() => navigate('/login')} style={{cursor:'pointer'}}>Already Registered? Login Here</MDBCardText>
-                <MDBCardText className='text-center' onClick={() => navigate('/apply')} style={{cursor:'pointer'}}>Don't have an Account? Apply today</MDBCardText>
-            </MDBCardFooter>
-        </MDBCard>
-    </div>
-  )
-}
+              </MDBCardBody>
+              <MDBCardFooter>
+                <MDBCardText className='text-center' onClick={() => navigate('/login')} style={{ cursor: 'pointer' }}>
+                  Already Registered? Login Here
+                </MDBCardText>
+                <MDBCardText className='text-center' onClick={() => navigate('/apply')} style={{ cursor: 'pointer' }}>
+                  Don't have an Account? Apply today
+                </MDBCardText>
+              </MDBCardFooter>
+            </MDBCard>
+          </div>
+        </div>
+      );
+    };
+    

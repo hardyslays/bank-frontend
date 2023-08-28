@@ -160,7 +160,7 @@ export const PayeeBoard = () => {
     return(
         <Container >
 
-            <MDBCard className='text-center' style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)', color: '#fff' }}>
+            <MDBCard className='text-center' style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)', color: '#fff' }}>
                 <MDBCardText className='fs-4 pt-3 ps-5'>Your Payees</MDBCardText>
                 <MDBCardBody className='d-flex justify-content-around'>
                 {payees.map((payee, i) => {

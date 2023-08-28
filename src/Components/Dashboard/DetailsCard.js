@@ -22,7 +22,7 @@ export const DetailsCard = () => {
        
        
             
-            <MDBCard className='m-1 pt-3' style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)', color: '#fff' }}>
+            <MDBCard className='m-1 pt-3' style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)', color: '#fff' }}>
             <MDBCardText className='pt-3 px-4 fs-2 '>Savings Account</MDBCardText>
                 <div className='d-flex justify-content-around align-items-center'>
                 <p className='fs-3'>A/C balance</p>
