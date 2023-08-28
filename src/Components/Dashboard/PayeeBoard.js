@@ -129,7 +129,7 @@ export const PayeeBoard = () => {
     }
 
     return(
-        <Container >
+        <Container className="mt-3">
 
             <MDBCard className=''>
                 <MDBCardText className='fs-4 pt-3 ps-5'>Your Payees</MDBCardText>

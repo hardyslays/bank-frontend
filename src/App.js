@@ -14,6 +14,7 @@ import { AdminDashboard } from './Components/Admin/AdminDashboard';
 import { ApplySuccess } from './Components/Apply/ApplySuccess';
 import { AdminApproval } from './Components/Admin/AdminApproval';
 import { DashboardPage } from './Components/Dashboard/DashboardPage';
+import { TransferSuccess } from './Components/Dashboard/TransferSuccess';
 import Auth from './Services/Auth'
 import { DisableCustomer } from './Components/Admin/DisableCustomer';
 
@@ -27,6 +28,7 @@ function App() {
       <>
       <Routes>
         <Route path='/dashboard' element={<DashboardPage/>} />
+        <Route path='/transfer-success/:id' element={<TransferSuccess/>}/>
 
         <Route path='/admin'>
             <Route path='login' element = {<AdminLogin/>} />
@@ -50,8 +52,8 @@ function App() {
     <div className="App">
       <>
       {/* <HeaderLogout/> */}
-
-      {!!getToken()?'1':'0'}
+{/* 
+      {!!getToken()?'1':'0'} */}
     {/* //Routes logic */}
 
 

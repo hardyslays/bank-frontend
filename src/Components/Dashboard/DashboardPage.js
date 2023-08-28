@@ -21,14 +21,15 @@ export const DashboardPage = () => {
         //To check if already Logged in
         if(!getToken()){
             navigate('/login', {replace: true})
+            return
         }
         setUser(Auth().getUser());
     }, [])
 
   return (
-    <Row className='m-0 p-0 mh-100'>
-        <Col md={2} style={{border:'solid 1px red'}} className='p-0'>
-            <Navbar bg="light" data-bs-theme="light" className='align-items-center justify-content-start h-100 w-100 flex-column'>
+    <Row className='m-0 p-0 h-100 d-flex justify-content-center align-items-center' >
+        <Col md={2} className='p-0 h-100'>
+            <Navbar bg="light" data-bs-theme="light" className='h-100 align-items-center justify-contents-center h-100 w-100 flex-column'>
                 <Navbar.Brand className='text-center fs-5'>Hello, {user.charAt(0).toUpperCase() + user.slice(1)}</Navbar.Brand>
                 <Nav className='flex-column'defaultActiveKey={'dashboard'} onSelect={key => setPage(key)}>
                     <Nav.Link eventKey={'dashboard'}>DashBoard</Nav.Link>
@@ -38,7 +39,7 @@ export const DashboardPage = () => {
                 </Nav>
             </Navbar>
         </Col>
-        <Col className='p-0'>
+        <Col className='p-0 d-flex justify-content-center align-items-center'>
             {(page==='dashboard')&&<Dashboard/>}
             {(page==='statement')&&<Statement/>}
             {(page==='transfer')&&<Transfer/>}

@@ -62,11 +62,12 @@ export const LoginForm = () => {
             console.log(data)
             if(data === 'error'){
                 window.alert("Invalid Credentials")
-                return;
             }
-            setToken(formData.userName, data)
+            else{
+                setToken(formData.userName, data)
+                navigate('/dashboard')
+            }
         })
-        .then(() => navigate('/dashboard'))
     }
 
 

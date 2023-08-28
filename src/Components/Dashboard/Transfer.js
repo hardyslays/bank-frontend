@@ -8,9 +8,11 @@ import { SummaryCard } from './SummaryCard';
 import { PayeeBoard } from './PayeeBoard';
 import { getPayees, postTransfer } from '../../Services/Api';
 import Select from 'react-select';
+import { useNavigate } from 'react-router';
 
 const Col2 = () =>
 {
+    const navigate = useNavigate()
     const [form, setForm] = useState({})
     const [err, setErr] = useState({})
     const [payees, setPayees] = useState([])
@@ -112,7 +114,7 @@ const Col2 = () =>
                 res.text()
                 .then(data => {
                     console.log('resp: ', data)
-
+                    navigate(`/transfer-success/${data.split(' ')[2]}`)
                 })
             }
         })

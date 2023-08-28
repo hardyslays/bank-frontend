@@ -9,9 +9,10 @@ import { DetailsCard } from './DetailsCard';
 import { PayeeBoard } from './PayeeBoard';
 import { getTransactions } from '../../Services/Api';
 import { stringToDate } from '../../Utils/Date';
+import Auth from '../../Services/Auth';
 
 const SideArea = () => {
-
+    const navigate = useNavigate();
     const [active, setactive] = useState('all')
     const [transactions, setTransactions] = useState([])
 
@@ -23,6 +24,7 @@ const SideArea = () => {
     }
 
     useEffect(() => {
+
         getTransactions()
         .then(res => {
             if(!res.ok){
@@ -70,8 +72,8 @@ const SideArea = () => {
     }, [])
 
     return (
-        <Container className='py-3'>
-        <p className='fs-3 mt-2 ms-3'>Recent Transactions</p>
+        <Container className='py-3 mt-0'>
+        <p className='fs-3 mt-1 ms-3'>Recent Transactions</p>
         <MDBTabs className='mb-3 ms-3 fs-0.75'>
             <MDBTabsItem>
             <MDBTabsLink onClick={() => handleClick('all')} active={active === 'all'}>
@@ -93,7 +95,7 @@ const SideArea = () => {
         <MDBTabsContent>
             <MDBTabsPane show={active === 'all'}>
                 <MDBContainer>
-                {transactions.slice(0, 3)
+                {transactions.slice(0, 4)
                 .map((item) => {
                     return(
                         <>
@@ -116,7 +118,7 @@ const SideArea = () => {
             </MDBTabsPane>
             <MDBTabsPane show={active === 'credit'}>
             <MDBContainer>
-            {transactions.filter(item => item.type === 'credit').slice(0, 3)
+            {transactions.filter(item => item.type === 'credit').slice(0, 4)
             .map((item) => {
                 return(
                     <>
@@ -139,7 +141,7 @@ const SideArea = () => {
             </MDBTabsPane>
             <MDBTabsPane show={active === 'debit'}>
             <MDBContainer>
-                {transactions.filter(item => item.type === 'debit').slice(0, 3)
+                {transactions.filter(item => item.type === 'debit').slice(0, 4)
                 .map((item) => {
                     return(
                         <>
@@ -172,11 +174,11 @@ export const Dashboard = () => {
     <div className='w-100 m-0'>
         <Container>
             <Row>
-                <Col md={6}>
-                    <DetailsCard />
+                <Col md={6} className='p-3'>
+                    <DetailsCard/>
                     <SummaryCard />
                 </Col>
-                <Col md={5}>
+                <Col md={6} className='p-3'>
                     <SideArea />
                     <PayeeBoard />
                 </Col>
