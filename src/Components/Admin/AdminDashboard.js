@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ButtonGroup, Col, Card, Button, Row, ListGroup } from 'react-bootstrap'
+import { Form, Col, Card, Button, Row, ListGroup } from 'react-bootstrap'
 import { getCustomers,getCustomersApproved,getCustomersAll,getAccounts } from '../../Services/Admin';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,12 +10,14 @@ export const AdminDashboard = (main_props) => {
 
     const navigate = useNavigate()
     const [cust, setCust] = useState([]);
+    const [allCust, setAllCust] = useState([]);
     const [accounts, setAccounts] = useState([]);
 
     useEffect(() => {
             getCustomersAll()
             .then(data => {
                 setCust(data)
+                setAllCust(data)
                 console.log(data)
             })
         
@@ -125,6 +127,19 @@ export const AdminDashboard = (main_props) => {
         </Row>
         )
     }
+
+    const myFilter = (q) => {
+        setCust(
+            ()=>{
+                let newCust = allCust.filter((ele)=>{
+                    console.log(ele);
+                    return ele.customerId.startsWith(q);
+                });
+                return newCust;
+            }
+        )
+    }
+
   return (<>
     <h1 className='text-center'>Admin Dashboard</h1>
     <Row lg={4} mx={1}>
@@ -137,6 +152,16 @@ export const AdminDashboard = (main_props) => {
     <CustomCard title="Pending" desc="This is list of all unapproved customers" 
                 url="/admin/pending/" url_title="Pending"/>
     </Row>
+    <Form className="akFilter">
+        <Form.Group>
+            <Form.Label>Search Customers</Form.Label>
+            <Form.Control 
+                type='text'
+                placeholder='Enter Customer Id'
+                onChange={(e) => myFilter(e.target.value)}
+            />
+        </Form.Group>
+    </Form>
     <h3 className='text-center'>{main_props.heading}</h3>
     <CustomerRow/>
     <AccountRow/>
