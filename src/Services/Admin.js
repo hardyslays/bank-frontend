@@ -16,7 +16,7 @@ const authGetOptions = () => ({
     headers:{
         'Access-Control-Allow-Origin': '*',
         'Content-Type':'application/json; charset=utf-8',
-        'Authorization': `Bearer ${Auth().getToken()}`
+        // 'Authorization': `Bearer ${Auth().getToken()}`
     },
 })
 
@@ -25,7 +25,7 @@ const authPostOptions = form => ({
     headers:{
         'Access-Control-Allow-Origin': '*',
         'Content-Type':'application/json; charset=utf-8',
-        'Authorization': `Bearer ${Auth().getToken()}`
+        // 'Authorization': `Bearer ${Auth().getToken()}`
     },
     body: JSON.stringify(form)
 })
@@ -47,7 +47,7 @@ export const getCustomersAll = async() => {
     // const res = await instance.get('/all/customers')
     const res = await fetch(SERVER_URL+'/admin/all/customers', authGetOptions())
     const data = await res.json()
-    return data
+    return data;
 }
 
 export const getAccounts = async() => {
