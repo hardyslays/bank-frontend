@@ -16,7 +16,7 @@ const authGetOptions = () => ({
     headers:{
         'Access-Control-Allow-Origin': '*',
         'Content-Type':'application/json; charset=utf-8',
-        // 'Authorization': `Bearer ${Auth().getToken()}`
+        'Authorization': "batch8group4"
     },
 })
 
@@ -25,7 +25,7 @@ const authPostOptions = form => ({
     headers:{
         'Access-Control-Allow-Origin': '*',
         'Content-Type':'application/json; charset=utf-8',
-        // 'Authorization': `Bearer ${Auth().getToken()}`
+        'Authorization': "batch8group4"
     },
     body: JSON.stringify(form)
 })
