@@ -8,3 +8,14 @@
     width: 75%;
     margin: auto;
 }
+
+@media screen and (min-width: 768px) {
+    .dashboard-sidebar{
+        height: 100vh;
+    }  
+} 
+
+.bgGradient{
+    background: radial-gradient( circle farthest-corner at 10% 20%,  rgba(8,213,172,1) 0.6%, rgba(5,126,108,1) 90% );
+    object-fit: cover;
+}

@@ -11,7 +11,10 @@ export default function Auth() {
 
     const getToken = () => {
         const tokenString = JSON.parse(sessionStorage.getItem('token'))
-        return tokenString;
+        if (tokenString){
+            console.log(tokenString);
+            return tokenString;
+        }
     }
     const getUser = () => {
         const userString = JSON.parse(sessionStorage.getItem('user'))
@@ -25,10 +28,16 @@ export default function Auth() {
         }
     })
 
+    const removeToken = () => {
+        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('user');
+    }
+
     return {
         auth,
         getToken,
         getUser,
-        'setToken': saveToken
+        'setToken': saveToken,
+        removeToken
     }
 }

@@ -11,13 +11,13 @@ let instance = axios.create({
     }
 })
 
-const unauthGetOptions = {
+const unauthGetOptions = () => ({
     method:'get',
     headers:{
         'Access-Control-Allow-Origin': '*',
         'Content-Type':'application/json; charset=utf-8'
     }
-}
+})
 
 const unauthPostOptions = form => ({
     method:'post',
@@ -52,14 +52,14 @@ export const login = async(loginData) => {
 
 //Authenticated API calls
 
-const authGetOptions = {
+const authGetOptions = () => ({
     method:'get',
     headers:{
         'Access-Control-Allow-Origin': '*',
         'Content-Type':'application/json; charset=utf-8',
         'Authorization': `Bearer ${Auth().getToken()}`
     },
-}
+})
 
 const authPostOptions = form => ({
     method:'post',
@@ -74,14 +74,14 @@ const authPostOptions = form => ({
 export const getAccountCustomerDetails = async() => {
     const username = Auth().getUser();
     
-    const res = await fetch(SERVER_URL+`/api/netbanking/details/${username}`, authGetOptions)
+    const res = await fetch(SERVER_URL+`/api/netbanking/details/${username}`, authGetOptions())
 
     return res
 }
 
 export const getPayees = async() => {
     const username = Auth().getUser();
-    const res = await fetch(SERVER_URL+`/api/netbanking/beneficiary/${username}`, authGetOptions)
+    const res = await fetch(SERVER_URL+`/api/netbanking/beneficiary/${username}`, authGetOptions())
 
     return res
 }
@@ -100,13 +100,13 @@ export const postTransfer = async(formData) => {
 }
 
 export const getTransactions = async() => {
-    const res = await fetch(SERVER_URL+`/api/transaction/${Auth().getUser()}`, authGetOptions)
+    const res = await fetch(SERVER_URL+`/api/transaction/${Auth().getUser()}`, authGetOptions())
 
     return res
 }
 
 export const getAccountNameByAccountNumber = async(acNum) => {
-    const res = await fetch(SERVER_URL+`/api/account/accountName/${acNum}`, authGetOptions)
+    const res = await fetch(SERVER_URL+`/api/account/accountName/${acNum}`, authGetOptions())
 
     return res.text()
 }

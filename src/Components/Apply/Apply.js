@@ -18,9 +18,8 @@ export const Apply = () => {
     }, [])
 
     return(
-        <>
-        {!getToken()?'1':'0'}
-        <ApplyForm/>
-        </>
+    <div style={{width: '100%', height:'100%'}} className='bgGradient px-3 py-4'>
+            <ApplyForm/>
+        </div>
     )
 }

@@ -2,40 +2,41 @@ import React from 'react'
 import { Col, Container, Row, Card, ListGroup } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 
+import BankImg from '../../assets/home_bg.jpg'
+
 const HomeCard = () => {
 
     const navigate = useNavigate();
 
     return (
-        <Card className='text-center'>
-            <Card.Header className='p-3' as='h2'>Bank Home Page</Card.Header>
+        <Card className='text-center mt-5'>
+            <Card.Header className='p-3' as='h2'>WELCOME TO VAISHALI BANK LTD.</Card.Header>
             <Card.Body>
                 <Card.Text className='px-2 pb-1'>
-                Hey There, Welcome to our banking system. We are here for you, always!!
-                </Card.Text>
-                <Card.Text className='px-2 pb-1'>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Where everyone is treated like family. We are a full service bank offering a wide range of banking services. We are committed to providing our customers with the best possible banking experience. We take pride in being "your" bank.
                 </Card.Text>
             </Card.Body>
-            <Card className='mx-3'>
-                <ListGroup className="list-group-flush">
-                    <ListGroup.Item 
-                        style={{cursor:'pointer'}} 
-                        onClick={() => navigate('/login')}>
-                        Already a Customer? Log In
-                    </ListGroup.Item>
-                    <ListGroup.Item 
-                        style={{cursor:'pointer'}} 
-                        onClick={() => navigate('/register')}>
-                        New User? Register
-                    </ListGroup.Item>
-                    <ListGroup.Item 
-                        style={{cursor:'pointer'}} 
-                        onClick={() => navigate('/apply')}>
-                        Apply for a new Account
-                    </ListGroup.Item>
-                </ListGroup>
-            </Card>
+            <Card.Footer className='p-3'>
+                <Card className='mx-3'>
+                    <ListGroup className="list-group-flush">
+                        <ListGroup.Item 
+                            style={{cursor:'pointer'}} 
+                            onClick={() => navigate('/login')}>
+                            Already a Customer? Log In
+                        </ListGroup.Item>
+                        <ListGroup.Item 
+                            style={{cursor:'pointer'}} 
+                            onClick={() => navigate('/register')}>
+                            New User? Register
+                        </ListGroup.Item>
+                        <ListGroup.Item 
+                            style={{cursor:'pointer'}} 
+                            onClick={() => navigate('/apply')}>
+                            Apply for a new Account
+                        </ListGroup.Item>
+                    </ListGroup>
+                </Card>
+            </Card.Footer>
             <Card.Body>
             </Card.Body>
         </Card>
@@ -44,17 +45,26 @@ const HomeCard = () => {
 
 export const Home = () => {
   return (
-    <Container>
-        <Row className='justify-content-center'>
-            <Col style={{border:'solid 1px green'}} fluid="xs sm" md={{span: 4, order: 2}} className='my-3'>
+    <div style={{width: '100%', height:'100%'}} className='bgGradient'>
+    <Container className='w-100 h-100 m-0 p-0 d-flex justify-content-center align-items-center'>
+        <Row className='align-items-center h-100'>
+            <Col fluid="xs sm" md={8} className='m-0 p-0 h-100'>
+                <div className='bg-image h-100'>
+                    <img src={BankImg} className='w-100 h-100' alt='img' style={{objectFit:'cover', height: '100vh'}}></img>
+                    <div className='mask' style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)' }}>
+                        <div className='d-flex justify-content-center align-items-center h-100'>
+                            <p className='text-white' style={{fontSize: '2.5rem'}}>Vaishali Bank Ltd.</p>
+                        </div>
+                    </div>
+                </div>
+            </Col>
+            <Col fluid="xs sm" md={4} className='my-3'>
                 <Container>
                     <HomeCard/>
                 </Container>
             </Col>
-            <Col style={{border:'solid 1px red'}} fluid="xs sm" md={{span: 8, order: 1}} className='my-3'>
-
-            </Col>
         </Row>
     </Container>
+    </div>
   )
 }

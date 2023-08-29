@@ -4,6 +4,7 @@ import { Container, Form, Toast } from "react-bootstrap";
 import { getPayees, postAddPayee } from "../../Services/Api";
 import { SERVER_URL } from "../../Utils/url";
 import Auth from "../../Services/Auth";
+import avatarImg from '../../assets/default-avatar.png'
 
 const AddPayeeModal = ({updatePayee}) => {
 
@@ -138,7 +139,7 @@ export const PayeeBoard = () => {
                     return(
                         <div>
                         <img className='shadow-4'
-                        src='assets/default-avatar.png'
+                        src={avatarImg}
                         alt='avatar'
                         style={{width: '80px'}}
                         />

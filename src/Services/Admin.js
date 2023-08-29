@@ -11,10 +11,24 @@ let instance = axios.create({
     }
 })
 
+const authGetOptions = () => ({
+    method:'get',
+    headers:{
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type':'application/json; charset=utf-8',
+        'Authorization': "batch8group4"
+    },
+})
 
-export const getCustomers = async() => {
-    const res = await instance.get('/unapproved/customers')
-
+const authPostOptions = form => ({
+    method:'post',
+    headers:{
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type':'application/json; charset=utf-8',
+        'Authorization': "batch8group4"
+    },
+    body: JSON.stringify(form)
+})
 
 export const getCustomers = async() => {
     const res = await fetch(SERVER_URL+'/admin/unapproved/customers', authGetOptions())
@@ -33,7 +47,7 @@ export const getCustomersAll = async() => {
     // const res = await instance.get('/all/customers')
     const res = await fetch(SERVER_URL+'/admin/all/customers', authGetOptions())
     const data = await res.json()
-    return data
+    return data;
 }
 
 export const getAccounts = async() => {
